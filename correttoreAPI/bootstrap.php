@@ -39,6 +39,11 @@ $app->before(function (Request $request, Silex\Application $app) {
     else $app['user'] = null;
 });
 
+//Enabling CORS
+$app->after(function (Request $request, Response $response) {
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        });
+
 # ROUTING
 use Correttore\Controller;
 
