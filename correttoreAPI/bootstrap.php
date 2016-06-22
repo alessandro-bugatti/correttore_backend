@@ -58,10 +58,13 @@ $api->get('/info', 'auth.api:info')
 $api->get('/logout', 'auth.api:logout')
 	->bind('logout');
 
+//Teachers
+$api->get('/teachers', 'user.api:getTeachers')
+	->bind('get_teachers');
 
 $app->boot();
 
-$app->mount('/v1', $api);
+$app->mount('/v' . $app['version'], $api);
 // This should be the last line
 $app->run(); // Start the application, i.e. handle the request
 ?>
