@@ -53,17 +53,18 @@ $app->after(function (Request $request, Response $response) {
         });
 
 # ROUTING
-use Correttore\Controller;
+
 
 $app['auth.api'] = $app->share(function() { return new Controller\Auth(); });
 
 $api = $app['controllers_factory'];
 
-$api->post('/login', 'auth.api:login')
+//Authentication and authorization routes
+$api->post('/public/login', 'auth.api:login')
 	->bind('login');
-$api->get('/info', 'auth.api:info')
+$api->get('/public/info', 'auth.api:info')
 	->bind('info');
-$api->get('/logout', 'auth.api:logout')
+$api->get('/public/logout', 'auth.api:logout')
 	->bind('logout');
 
 //Teachers
