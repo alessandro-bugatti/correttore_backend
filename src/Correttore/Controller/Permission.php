@@ -24,16 +24,22 @@ class Permission{
 		]
 	];
 	
-	public static function isGranted($user, $request){
-	    if ($user->role->description == 'admin')
+	public static function isGranted($role, $method, $route){
+	    if ($role == 'admin')
             return true;
-	    $route = substr(strrchr($request->getURI(),'/'),1);
-	    $method = $request->getMethod();
-	    echo $route . " " . $method;
+	    //echo $route . " " . $method;
 	    $search = [
 	            'route' => $route,
 				'method' => $method
 	        ];
-	    return in_array($search, self::$permissions[$user->role->description]);
+	    return in_array($search, self::$permissions[$role]);
 	}
+	
+
+    public static function publicRoute($route)
+    {
+        if ($route == '/public')
+            return true;
+        return false;
+    }
 }
