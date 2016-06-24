@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use Correttore\User\UserRepository;
-
+use Correttore\Controller;
 
 // Create the Silex application
 $app = new Silex\Application();
@@ -30,13 +30,21 @@ $app->before(function (Request $request, Silex\Application $app) {
         $data = json_decode($request->getContent(), true);
         $request->request->replace(is_array($data) ? $data : array());
     }
-    if (($token = $request->headers->get('x-authorization-token')) != null) {
-        $users = new UserRepository();
-        $app['user'] = $users->getUserByToken($app,$token);
-        if ($app['user']==null)
-            return new JsonResponse(['error'=>'Token not found'], 403);
-        }
-    else $app['user'] = null;
+    $app['user'] = null;
+    $route = substr($request->getRequestURI(), 3, strpos($request->getRequestURI(),'/', 4) - 3 ); //Il 4 è per saltare /v1/
+    if (!Controller\Permission::publicRoute($route))
+        if (($token = $request->headers->get('x-authorization-token')) != null) {
+            $users = new UserRepository();
+            $app['user'] = $users->getUserByToken($app,$token);
+            $route = substr(strrchr($request->getURI(),'/'),1);
+            $method = $request->getMethod();
+            if ($app['user'] == null ||
+                    !Controller\Permission::isGranted($app['user']->role->description, $method, $route))
+                return new JsonResponse(['error'=>'Forbidden'], 403);
+            }
+        else
+            return new JsonResponse(['error'=>'Forbidden'], 403);
+
 });
 
 //Enabling CORS
