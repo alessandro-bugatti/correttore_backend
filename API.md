@@ -8,7 +8,7 @@ con n numero delle versione
 ## Auth
 API per l'autenticazione e l'autorizzazione
 
-### POST /login
+### POST /public/login
 #### Descrizione
 > Ritorna i dati di un utente se username e password sono corrette
 #### Input JSON
@@ -32,7 +32,7 @@ API per l'autenticazione e l'autorizzazione
 > **403** se l'utente non esiste
 
 
-### GET /info
+### GET /public/info
 #### Descrizione
 > Ritorna i dati di un utente se l'utente è già autenticato. L'autenticazione avviene passando in ogni richiesta
 il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
@@ -53,7 +53,7 @@ il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-aut
 > **403** se l'utente non esiste o comunque per un qualsiasi tipo di errore
 
 
-### GET /logout
+### GET /public/logout
 #### Descrizione
 > Distrugge la sessione di un utente autenticato. L'autenticazione avviene passando in ogni richiesta
 il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
