@@ -28,7 +28,7 @@ class Auth{
             $response['token'] = $user->token;
             $response['username'] = $user->username;
             $response['role'] = $user->role->description;
-            return new JsonResponse($response, 200); // Return it to so it gets displayed by the browse
+            return new JsonResponse($response, 200); 
         }
         else
             return new JsonResponse(['error'=>'User not found'], 403);    
@@ -36,6 +36,8 @@ class Auth{
 
     public function info(Request $request, Application $app)  {
         $user = $app['user'];
+        if ($user == null)
+            return new JsonResponse(['error'=>'Forbidden'], 403);
         $response['token'] = $user->token;
         $response['username'] = $user->username;
         $response['role'] = $user->role->description;
@@ -45,7 +47,7 @@ class Auth{
     public function logout(Request $request, Application $app)  {
         $user = $app['user'];
         if ($user == null)
-            return new Response('', 403);
+            return new JsonResponse(['error'=>'Forbidden'], 403);
         $users = new UserRepository();
         $users->clearTokenByUsername($app, $user->username);
         return new Response('',200); 
