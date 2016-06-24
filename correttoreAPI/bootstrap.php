@@ -56,6 +56,7 @@ $app->after(function (Request $request, Response $response) {
 
 
 $app['auth.api'] = $app->share(function() { return new Controller\Auth(); });
+$app['user.api'] = $app->share(function() { return new Controller\UserController(); });
 
 $api = $app['controllers_factory'];
 
@@ -66,6 +67,17 @@ $api->get('/public/info', 'auth.api:info')
 	->bind('info');
 $api->get('/public/logout', 'auth.api:logout')
 	->bind('logout');
+
+//Test public
+$api->get('/public/hello', function () use ($app) {
+    return 'Hello world';
+});
+	
+//Test private
+$api->get('/hello', function () use ($app) {
+    return 'Private';
+});
+	
 
 //Teachers
 $api->get('/teachers', 'user.api:getTeachers')
