@@ -42,4 +42,14 @@ class UserRepository{
 		$user->token = '';
 		$app['redbean']->store($user);
 	}
+	
+	public function getUsersByRole(Application $app, $role)
+	{
+		$users = $app['redbean']->getAll( 'SELECT user.id as id, name, surname, username 
+			FROM user LEFT JOIN role ON user.role_id = role.id 
+			WHERE role.description = :role',
+	        [':role' => $role]
+    	);
+		return $users;
+	}
 }
