@@ -15,4 +15,20 @@ class UserController{
         $teachers = $users->getUsersByRole($app,'teacher');
         return new JsonResponse($teachers, 200);
     }
+    
+    public function createTeacher(Request $request, Application $app)  {
+        //Check the role
+        if ($request->request->get("role") != 'teacher')
+            return new JsonResponse(["error", "Wrong role"], 403);
+        $users = new UserRepository();
+        $user = $users->createUser($app, $request->request);
+        if ($user != null){
+            unset($user->id);
+            unset($user->password);
+            unset($user->role);
+            return new JsonResponse($user->export(), 201);
+        }
+        else
+            return new Response('',409);
+    }
 }

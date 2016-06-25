@@ -52,4 +52,21 @@ class UserRepository{
     	);
 		return $users;
 	}
+	
+	public function createUser(Application $app, $data)
+	{
+		//Does username already exist?
+		if ($app['redbean']->findOne( 'user', ' username = ? ', [ $data->get("username") ] ) != null)
+			return null;
+		$user = $app['redbean']->dispense("user");
+		$role = $app['redbean']->findOne( 'role', ' description = ? ', [ $data->get("role") ] );
+    	$user->name = $data->get("name");
+    	$user->surname = $data->get("surname");
+    	$user->username = $data->get("username");
+    	$user->password = password_hash($data->get("username"),PASSWORD_DEFAULT);
+    	$user->role = $role; 
+    	$app['redbean']->begin();
+	    $app['redbean']->store($user);
+	    return $user;    
+    }
 }
