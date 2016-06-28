@@ -16,6 +16,13 @@ class UserRepository{
 		return $user;
 	}
 	
+	public function getUserByID(Application $app, $id)
+	{
+		echo $id;
+		$user = $app['redbean']->load( 'user', $id);
+		return $user;
+	}
+	
 	public function getAuthenticatedUser(Application $app, $username, $password)
 	{
 		$user = $this->getUserByUsername($app, $username);
@@ -55,7 +62,7 @@ class UserRepository{
 	
 	public function createUser(Application $app, $data)
 	{
-		//Does username already exist?
+		//Does the username already exist?
 		if ($app['redbean']->findOne( 'user', ' username = ? ', [ $data->get("username") ] ) != null)
 			return null;
 		$user = $app['redbean']->dispense("user");

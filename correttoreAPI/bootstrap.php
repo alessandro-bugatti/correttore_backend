@@ -86,6 +86,9 @@ $api->get('/teachers', 'user.api:getTeachers')
 $api->post('/teachers', 'user.api:createTeacher')
 	->bind('create_teacher');
 
+$api->get('/teachers/{id}', 'user.api:getTeacher')
+	->bind('get_teacher');
+
 $app->boot();
 
 $app->mount('/v' . $app['version'], $api);
