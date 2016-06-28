@@ -31,6 +31,21 @@ class UserController{
             return new Response('',409);
     }
     
+    private function getUserByIDRole(Application $app, $id, $role)
+    {
+        $users = new UserRepository();
+        $user = $users->getUserByID($app,$id);
+        
+        if ($user->ID == 0)
+            return new Response('', 404);
+        if ($user->role->description != $role)
+            return new Response('', 404);
+        unset($user->password);
+        unset($user->role);
+        unset($user->token);
+        return new JsonResponse($user->export(), 200);
+    }
+    
     public function createTeacher(Request $request, Application $app)  {
         //Check the role
         if ($request->request->get("role") != 'teacher')
@@ -39,15 +54,6 @@ class UserController{
     }
     
     public function getTeacher (Application $app, $id)  {
-        $users = new UserRepository();
-        $teacher = $users->getUserByID($app,$id);
-        if ($teacher->ID == 0)
-            return new Response('', 404);
-        if ($teacher->role->description != 'teacher')
-            return new Response('', 404);
-        unset($teacher->password);
-        unset($teacher->role);
-        unset($teacher->token);
-        return new JsonResponse($teacher->export(), 200);
+        return $this->getUserByIDRole($app,$id,'teacher');
     }
 }
