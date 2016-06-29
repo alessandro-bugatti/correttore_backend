@@ -88,6 +88,9 @@ $api->post('/teachers', 'user.api:createTeacher')
 
 $api->get('/teachers/{id}', 'user.api:getTeacher')
 	->bind('get_teacher');
+	
+$api->put('/teachers/{id}', 'user.api:updateTeacher')
+	->bind('update_teacher');
 
 $app->boot();
 

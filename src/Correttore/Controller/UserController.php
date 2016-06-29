@@ -31,6 +31,23 @@ class UserController{
             return new Response('',409);
     }
     
+    private function updateUser(Request $request, Application $app, $id)
+    {
+        $users = new UserRepository();
+        $user = $users->updateUser($app, $request->request, $id);
+        if ($user != null){
+            unset($user->id);
+            unset($user->password);
+            unset($user->role);
+            unset($user->role_id);
+            return new JsonResponse($user->export(), 200);
+        }
+        else
+            return new Response('',409);
+    }
+    
+    
+    
     private function getUserByIDRole(Application $app, $id, $role)
     {
         $users = new UserRepository();
@@ -55,5 +72,12 @@ class UserController{
     
     public function getTeacher (Application $app, $id)  {
         return $this->getUserByIDRole($app,$id,'teacher');
+    }
+    
+    public function updateTeacher (Request $request, Application $app, $id)  {
+        //Check the role
+        if ($request->request->get("role") != 'teacher')
+            return new JsonResponse(["error", "Wrong role"], 403);
+        return $this->updateUser($request, $app, $id);
     }
 }

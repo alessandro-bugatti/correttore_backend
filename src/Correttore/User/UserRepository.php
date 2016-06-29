@@ -18,7 +18,6 @@ class UserRepository{
 	
 	public function getUserByID(Application $app, $id)
 	{
-		echo $id;
 		$user = $app['redbean']->load( 'user', $id);
 		return $user;
 	}
@@ -73,6 +72,25 @@ class UserRepository{
     	$user->password = password_hash($data->get("username"),PASSWORD_DEFAULT);
     	$user->role = $role; 
     	$app['redbean']->begin();
+	    $app['redbean']->store($user);
+	    return $user;    
+    }
+    
+    public function updateUser(Application $app, $data, $id)
+	{
+		//Does the user exist?
+		if (($user = $app['redbean']->load( 'user', $id )) == null)
+			return null;
+		//Does the username already exist in another record?
+		if ($app['redbean']->findOne( 'user', ' username = ? and ID <> ?', [ $data->get("username"), $id ] ) != null)
+			return null;
+		$role = $app['redbean']->findOne( 'role', ' description = ? ', [ $data->get("role") ] );
+    	$user->name = $data->get("name");
+    	$user->surname = $data->get("surname");
+    	$user->username = $data->get("username");
+    	$user->password = password_hash($data->get("username"),PASSWORD_DEFAULT);
+    	$user->role = $role; 
+    	//$app['redbean']->begin();
 	    $app['redbean']->store($user);
 	    return $user;    
     }
