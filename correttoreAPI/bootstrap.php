@@ -92,6 +92,9 @@ $api->get('/teachers/{id}', 'user.api:getTeacher')
 $api->put('/teachers/{id}', 'user.api:updateTeacher')
 	->bind('update_teacher');
 
+$api->delete('/teachers/{id}', 'user.api:deleteTeacher')
+	->bind('delete_teacher');
+	
 $app->boot();
 
 $app->mount('/v' . $app['version'], $api);

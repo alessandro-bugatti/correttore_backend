@@ -46,6 +46,15 @@ class UserController{
             return new Response('',409);
     }
     
+    private function deleteUser(Application $app, $id)
+    {
+        $users = new UserRepository();
+        if ($users->deleteUser($app, $id) == true)
+            return new Response('', 204);
+        else
+            return new Response('', 404);
+    }
+    
     
     
     private function getUserByIDRole(Application $app, $id, $role)
@@ -79,5 +88,15 @@ class UserController{
         if ($request->request->get("role") != 'teacher')
             return new JsonResponse(["error", "Wrong role"], 403);
         return $this->updateUser($request, $app, $id);
+    }
+    
+    public function deleteTeacher (Application $app, $id)  {
+        $users = new UserRepository();
+        $user = $users->getUserByID($app,$id);
+        if ($user->ID == 0)
+            return new Response('', 404);
+        if ($user->role->description != 'teacher')
+            return new Response('', 403);
+        return $this->deleteUser($app, $id);
     }
 }

@@ -94,4 +94,13 @@ class UserRepository{
 	    $app['redbean']->store($user);
 	    return $user;    
     }
+    
+    public function deleteUser(Application $app, $id)
+	{
+		//Does the user exist?
+		if (($user = $app['redbean']->load( 'user', $id )) == null)
+			return false;
+		$app['redbean']->trash($user);
+	    return true;    
+    }
 }
