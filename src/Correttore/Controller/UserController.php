@@ -61,13 +61,13 @@ class UserController{
     {
         $users = new UserRepository();
         $user = $users->getUserByID($app,$id);
-        
         if ($user->ID == 0)
             return new Response('', 404);
         if ($user->role->description != $role)
             return new Response('', 404);
         unset($user->password);
         unset($user->role);
+        unset($user->role_id);
         unset($user->token);
         return new JsonResponse($user->export(), 200);
     }
