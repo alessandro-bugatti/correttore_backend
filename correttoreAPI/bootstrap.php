@@ -40,7 +40,7 @@ $app->before(function (Request $request, Silex\Application $app) {
             $method = $request->getMethod();
             if ($app['user'] == null ||
                     !Controller\Permission::isGranted($app['user']->role->description, $method, $route))
-                return new JsonResponse(['error'=>'Forbidden'], 403);
+                return new JsonResponse(['error'=>'Unauthorized'], 401);
             }
         else
             return new JsonResponse(['error'=>'Forbidden'], 403);
@@ -83,6 +83,18 @@ $api->get('/hello', function () use ($app) {
 $api->get('/teachers', 'user.api:getTeachers')
 	->bind('get_teachers');
 
+$api->post('/teachers', 'user.api:createTeacher')
+	->bind('create_teacher');
+
+$api->get('/teachers/{id}', 'user.api:getTeacher')
+	->bind('get_teacher');
+	
+$api->put('/teachers/{id}', 'user.api:updateTeacher')
+	->bind('update_teacher');
+
+$api->delete('/teachers/{id}', 'user.api:deleteTeacher')
+	->bind('delete_teacher');
+	
 $app->boot();
 
 $app->mount('/v' . $app['version'], $api);

@@ -16,6 +16,12 @@ class UserRepository{
 		return $user;
 	}
 	
+	public function getUserByID(Application $app, $id)
+	{
+		$user = $app['redbean']->load( 'user', $id);
+		return $user;
+	}
+	
 	public function getAuthenticatedUser(Application $app, $username, $password)
 	{
 		$user = $this->getUserByUsername($app, $username);
@@ -52,4 +58,49 @@ class UserRepository{
     	);
 		return $users;
 	}
+	
+	public function createUser(Application $app, $data)
+	{
+		//Does the username already exist?
+		if ($app['redbean']->findOne( 'user', ' username = ? ', [ $data->get("username") ] ) != null)
+			return null;
+		$user = $app['redbean']->dispense("user");
+		$role = $app['redbean']->findOne( 'role', ' description = ? ', [ $data->get("role") ] );
+    	$user->name = $data->get("name");
+    	$user->surname = $data->get("surname");
+    	$user->username = $data->get("username");
+    	$user->password = password_hash($data->get("username"),PASSWORD_DEFAULT);
+    	$user->role = $role; 
+    	$app['redbean']->begin();
+	    $app['redbean']->store($user);
+	    return $user;    
+    }
+    
+    public function updateUser(Application $app, $data, $id)
+	{
+		//Does the user exist?
+		if (($user = $app['redbean']->load( 'user', $id )) == null)
+			return null;
+		//Does the username already exist in another record?
+		if ($app['redbean']->findOne( 'user', ' username = ? and ID <> ?', [ $data->get("username"), $id ] ) != null)
+			return null;
+		$role = $app['redbean']->findOne( 'role', ' description = ? ', [ $data->get("role") ] );
+    	$user->name = $data->get("name");
+    	$user->surname = $data->get("surname");
+    	$user->username = $data->get("username");
+    	$user->password = password_hash($data->get("username"),PASSWORD_DEFAULT);
+    	$user->role = $role; 
+    	//$app['redbean']->begin();
+	    $app['redbean']->store($user);
+	    return $user;    
+    }
+    
+    public function deleteUser(Application $app, $id)
+	{
+		//Does the user exist?
+		if (($user = $app['redbean']->load( 'user', $id )) == null)
+			return false;
+		$app['redbean']->trash($user);
+	    return true;    
+    }
 }
