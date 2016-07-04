@@ -57,6 +57,8 @@ $app->after(function (Request $request, Response $response) {
 
 $app['auth.api'] = $app->share(function() { return new Controller\Auth(); });
 $app['user.api'] = $app->share(function() { return new Controller\UserController(); });
+$app['task.api'] = $app->share(function() { return new Controller\TaskController(); });
+
 
 $api = $app['controllers_factory'];
 
@@ -95,6 +97,12 @@ $api->put('/teachers/{id}', 'user.api:updateTeacher')
 $api->delete('/teachers/{id}', 'user.api:deleteTeacher')
 	->bind('delete_teacher');
 	
+	
+//Tasks
+
+$api->get('/tasks/{id}', 'task.api:getTask')
+	->bind('get_task');
+
 $app->boot();
 
 $app->mount('/v' . $app['version'], $api);
