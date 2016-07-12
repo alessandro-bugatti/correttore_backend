@@ -25,7 +25,7 @@ API per l'autenticazione e l'autorizzazione
 > **403** se l'utente non esiste
 
 
-### GET /public/info
+### GET /info
 #### Descrizione
 > Ritorna i dati di un utente se l'utente è già autenticato. L'autenticazione avviene passando in ogni richiesta
 il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
@@ -46,7 +46,7 @@ il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-aut
 > **403** se l'utente non esiste o comunque per un qualsiasi tipo di errore
 
 
-### GET /public/logout
+### GET /logout
 #### Descrizione
 > Distrugge la sessione di un utente autenticato. L'autenticazione avviene passando in ogni richiesta
 il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
