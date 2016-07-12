@@ -31,12 +31,11 @@ $app->before(function (Request $request, Silex\Application $app) {
         $request->request->replace(is_array($data) ? $data : array());
     }
     $app['user'] = null;
-    $route = substr($request->getRequestURI(), 3, strpos($request->getRequestURI(),'/', 4) - 3 ); //Il 4 è per saltare /v1/
+    $route = substr($request->getRequestURI(), 4, strpos($request->getRequestURI(),'/', 4) - 4 ); //Il 4 è per saltare /v1/
     if (!Controller\Permission::publicRoute($route) && $request->getMethod() != 'OPTIONS')
         if (($token = $request->headers->get('x-authorization-token')) != null) {
             $users = new UserRepository();
             $app['user'] = $users->getUserByToken($app,$token);
-            $route = substr(strrchr($request->getURI(),'/'),1);
             $method = $request->getMethod();
             if ($app['user'] == null ||
                     !Controller\Permission::isGranted($app['user']->role->description, $method, $route))
