@@ -21,13 +21,30 @@ class Permission{
 				'route' => 'tasks',
 				'method' => 'GET'
 			],
+			[
+				'route' => 'info',
+				'method' => 'GET'
+			],
+			[
+				'route' => 'logout',
+				'method' => 'GET'
+			],
+		],
+		'student' => [
+			[
+				'route' => 'info',
+				'method' => 'GET'
+			],
+			[
+				'route' => 'logout',
+				'method' => 'GET'
+			],
 		]
 	];
 	
 	public static function isGranted($role, $method, $route){
 	    if ($role == 'admin')
             return true;
-	    //echo $route . " " . $method;
 	    $search = [
 	            'route' => $route,
 				'method' => $method
