@@ -72,9 +72,9 @@ $api = $app['controllers_factory'];
 //Authentication and authorization routes
 $api->post('/public/login', 'auth.api:login')
 	->bind('login');
-$api->get('/public/info', 'auth.api:info')
+$api->get('/info', 'auth.api:info')
 	->bind('info');
-$api->get('/public/logout', 'auth.api:logout')
+$api->get('/logout', 'auth.api:logout')
 	->bind('logout');
 
 //Test public
