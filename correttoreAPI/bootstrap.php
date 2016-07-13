@@ -31,7 +31,14 @@ $app->before(function (Request $request, Silex\Application $app) {
         $request->request->replace(is_array($data) ? $data : array());
     }
     $app['user'] = null;
-    $route = substr($request->getRequestURI(), 4, strpos($request->getRequestURI(),'/', 4) - 4 ); //Il 4 è per saltare /v1/
+    
+    $len = strpos($request->getRequestURI(),'/', 4); 
+    if ($len == false) 
+        $len = strlen($request->getRequestURI()) - 4; //Il 4 è per saltare /v1/
+    else 
+        $len -= 4;
+    $route = substr($request->getRequestURI(), 4, $len);
+        
     if (!Controller\Permission::publicRoute($route) && $request->getMethod() != 'OPTIONS')
         if (($token = $request->headers->get('x-authorization-token')) != null) {
             $users = new UserRepository();
