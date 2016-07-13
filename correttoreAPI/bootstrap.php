@@ -115,6 +115,8 @@ $api->delete('/teachers/{id}', 'user.api:deleteTeacher')
 
 $api->get('/tasks/{id}', 'task.api:getTask')
 	->bind('get_task');
+$api->get('/tasks', 'task.api:getTasks')
+	->bind('get_tasks');
 
 $app->boot();
 

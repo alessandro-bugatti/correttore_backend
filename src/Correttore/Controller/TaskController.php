@@ -19,5 +19,11 @@ class TaskController{
         return new JsonResponse($task->export(), 200);
     }
     
+    public function getTasks (Application $app)  {
+        $tasksRep = new TaskRepository();
+        $tasks = $tasksRep->getTasks($app);
+        return new JsonResponse($tasks, 200);
+    }
+    
 }
 
