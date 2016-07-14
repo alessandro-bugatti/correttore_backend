@@ -6,7 +6,7 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Correttore\User\TaskRepository;
+use Correttore\Model\TaskRepository;
 
 
 class TaskController{

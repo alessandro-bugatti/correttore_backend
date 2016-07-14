@@ -1,6 +1,6 @@
 <?php
 
-namespace Correttore\User;
+namespace Correttore\Model;
 
 use Silex\Application;
 
