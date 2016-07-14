@@ -10,12 +10,6 @@ use Correttore\User\UserRepository;
 
 class UserController{
     
-    public function getTeachers (Application $app)  {
-        $users = new UserRepository();
-        $teachers = $users->getUsersByRole($app,'teacher');
-        return new JsonResponse($teachers, 200);
-    }
-    
     private function createUser(Request $request, Application $app)
     {
         $users = new UserRepository();
@@ -70,6 +64,15 @@ class UserController{
         unset($user->role_id);
         unset($user->token);
         return new JsonResponse($user->export(), 200);
+    }
+    
+    /*
+    *   TEACHERS
+    */
+    public function getTeachers (Application $app)  {
+        $users = new UserRepository();
+        $teachers = $users->getUsersByRole($app,'teacher');
+        return new JsonResponse($teachers, 200);
     }
     
     public function createTeacher(Request $request, Application $app)  {
