@@ -4,8 +4,11 @@ include 'lib/RedBeanPHP.php';
 R::setup( 'mysql:host=127.0.0.1;dbname=c9',
         'alessandro_bugat', '' );
 
+R::exec('drop table groupset_user');
+R::exec('drop table groupset');
 R::wipe('user');
 R::wipe('role');
+
 
 $user = R::dispense( 'user' );
 $user->name = 'Alessandro';
@@ -14,7 +17,21 @@ $user->username = 'alex';
 $user->password = '$2y$10$d/doEy2cRSCfIaIaoQ4QAOWdT13SzvXdVZW1M4xQxHwa.Xpk5ZygS'; //pippo
 $user->token = '';
 $user->role_id = '1';
+
+
+$groupset= R::dispense( 'groupset' );
+$groupset->description = 'classe 3AI 2015-2016';
+$user->ownGroupsetList[] = $groupset;
+$id = R::store( $groupset);
 $id = R::store( $user );
+
+$groupset= R::dispense( 'groupset' );
+$groupset->description = 'classe 4AI 2015-2016';
+$user->ownGroupsetList[] = $groupset;
+$id = R::store( $groupset);
+$id = R::store( $user );
+
+
 
 $user = R::dispense( 'user' );
 $user->name = 'Alekos';
@@ -23,7 +40,24 @@ $user->username = 'alekos';
 $user->password = '$2y$10$d/doEy2cRSCfIaIaoQ4QAOWdT13SzvXdVZW1M4xQxHwa.Xpk5ZygS'; //pippo
 $user->token = '';
 $user->role_id = '2';
+
+$user->sharedGroupsetList[] = $groupset;
 $id = R::store( $user );
+
+
+
+$user = R::dispense( 'user' );
+$user->name = 'Al';
+$user->surname = 'Gollini';
+$user->username = 'algol';
+$user->password = '$2y$10$d/doEy2cRSCfIaIaoQ4QAOWdT13SzvXdVZW1M4xQxHwa.Xpk5ZygS'; //pippo
+$user->token = '';
+$user->role_id = '2';
+
+$user->sharedGroupsetList[] = $groupset;
+$id = R::store( $user );
+
+
 
 $user = R::dispense( 'user' );
 $user->name = 'Alessandro';
@@ -33,6 +67,22 @@ $user->password = '$2y$10$d/doEy2cRSCfIaIaoQ4QAOWdT13SzvXdVZW1M4xQxHwa.Xpk5ZygS'
 $user->token = '';
 $user->role_id = '3';
 $id = R::store( $user );
+
+$user = R::dispense( 'user' );
+$user->name = 'Alberto';
+$user->surname = 'Regosini';
+$user->username = 'alby';
+$user->password = '$2y$10$d/doEy2cRSCfIaIaoQ4QAOWdT13SzvXdVZW1M4xQxHwa.Xpk5ZygS'; //pippo
+$user->token = '';
+$user->role_id = '1';
+$id = R::store( $user );
+
+$groupset= R::dispense( 'groupset' );
+$groupset->description = 'classe 4BI 2015-2016';
+$user->ownGroupsetList[] = $groupset;
+$id = R::store( $groupset);
+$id = R::store( $user );
+
 
 
 $role = R::dispense( 'role' );
