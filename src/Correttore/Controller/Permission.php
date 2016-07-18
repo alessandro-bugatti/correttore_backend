@@ -29,6 +29,10 @@ class Permission{
 				'route' => 'logout',
 				'method' => 'GET'
 			],
+			[
+				'route' => 'groups',
+				'method' => 'GET'
+			],
 		],
 		'student' => [
 			[
@@ -55,7 +59,7 @@ class Permission{
 
     public static function publicRoute($route)
     {
-        if ($route == '/public')
+    	if ($route == 'public')
             return true;
         return false;
     }
