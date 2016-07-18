@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use Correttore\User\UserRepository;
+use Correttore\Model\UserRepository;
 use Correttore\Controller;
 
 // Create the Silex application
@@ -71,7 +71,7 @@ $app->after(function (Request $request, Response $response) {
 $app['auth.api'] = $app->share(function() { return new Controller\Auth(); });
 $app['user.api'] = $app->share(function() { return new Controller\UserController(); });
 $app['task.api'] = $app->share(function() { return new Controller\TaskController(); });
-
+$app['group.api'] = $app->share(function() { return new Controller\GroupController(); });
 
 $api = $app['controllers_factory'];
 
@@ -117,6 +117,11 @@ $api->get('/tasks/{id}', 'task.api:getTask')
 	->bind('get_task');
 $api->get('/tasks', 'task.api:getTasks')
 	->bind('get_tasks');
+
+//Groups
+$api->get('/groups', 'group.api:getGroups')
+	->bind('get_groups');
+
 
 $app->boot();
 
