@@ -36,7 +36,7 @@ class UserController{
             unset($user->role_id);
             return new JsonResponse($user->export(), 200);
         }
-        else
+        else 
             return new Response('',409);
     }
     
