@@ -30,24 +30,22 @@ API per la gestione dei gruppi di studenti
 #### Input 
 > Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
 #### Input JSON
-> In input vengono forniti tutti i dati del gruppo
+> In input viene fornita la descrizione del gruppo
 ##### Esempio
     {
-    "username":"cristina",
-    "name":"Cristina",
-    "surname":"Trevisani",
-    "password":"pippo",
-    "role":"teacher"
+        "description":"Classe 5AI 2016",
     }
 #### Output JSON
-> Ritorna i dati dell'utente? (Da discutere)
+> Ritorna i dati del gruppo
 ##### Esempio
     {
-        "name":"Cristina",
-        "surname":"Trevisani",
-        "username":"cristina"
+        "id":"4",
+        "description":"Classe 5AI 2016",
+        "user_id":"1"
     }
 #### HTTP code
-> **201** se l'utente viene creato
+> **201** se il gruppo viene creato
 
-> **409** se l'utente non può essere creato
+> **409** se il gruppo non può essere creato perchè esiste già
+
+> **401** Utente non autorizzato

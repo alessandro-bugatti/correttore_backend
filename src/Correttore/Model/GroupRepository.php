@@ -23,5 +23,18 @@ class GroupRepository{
 		return Utility::BeansToArrays($groups);
 	}
 	
+	public function createGroup(Application $app, $data)
+	{
+		//Does the description already exist?
+		if ($app['redbean']->findOne( 'groupset', ' description = ? ', [ $data->get("description") ] ) != null)
+			return null;
+		$group = $app['redbean']->dispense("groupset");
+		$teacher = $app['redbean']->load( 'user', $app['user']->id );
+		$group->description = $data->get("description");
+		$group->user = $teacher;
+    	$app['redbean']->store($group);
+	    return $group;    
+    }
+	
 	
 }

@@ -121,6 +121,10 @@ $api->get('/tasks', 'task.api:getTasks')
 //Groups
 $api->get('/groups', 'group.api:getGroups')
 	->bind('get_groups');
+$api->post('/groups', 'group.api:createGroup')
+	->bind('create_group');
+
+
 
 
 $app->boot();

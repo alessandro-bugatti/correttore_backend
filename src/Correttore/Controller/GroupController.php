@@ -25,4 +25,16 @@ class GroupController{
             return new JsonResponse('',401);
     }
     
+    public function createGroup(Request $request, Application $app)  {
+        $groupRep = new GroupRepository();
+        if ($app['user']->role->description == 'teacher'){
+            $group = $groupRep->createGroup($app, $request->request);
+            if ($group == null)
+                return new JsonResponse(['error'=>'group already exist'], 403);
+            return new JsonResponse($group->export(),200);
+        }
+        else
+            return new JsonResponse('',401);
+    }
+    
 }
