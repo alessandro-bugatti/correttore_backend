@@ -15,7 +15,7 @@ $user->name = 'Alessandro';
 $user->surname = 'Bugatti';
 $user->username = 'alex';
 $user->password = '$2y$10$d/doEy2cRSCfIaIaoQ4QAOWdT13SzvXdVZW1M4xQxHwa.Xpk5ZygS'; //pippo
-$user->token = '';
+$user->token = '3427a80af08fdf717529d631339a090635acf72079712c12a8a0f2498c5f87da';
 $user->role_id = '1';
 
 
@@ -64,7 +64,7 @@ $user->name = 'Alessandro';
 $user->surname = 'Bugatti';
 $user->username = 'admin';
 $user->password = '$2y$10$d/doEy2cRSCfIaIaoQ4QAOWdT13SzvXdVZW1M4xQxHwa.Xpk5ZygS'; //pippo
-$user->token = '';
+$user->token = '67c9612e6218fa0c7ec3675583dbeb26572dd8a583d1561723987190ecce0043';
 $user->role_id = '3';
 $id = R::store( $user );
 
