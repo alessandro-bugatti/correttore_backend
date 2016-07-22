@@ -30,7 +30,23 @@ class GroupController{
         if ($app['user']->role->description == 'teacher'){
             $group = $groupRep->createGroup($app, $request->request);
             if ($group == null)
-                return new JsonResponse(['error'=>'group already exist'], 403);
+                return new JsonResponse(['error'=>'group already exist'], 409);
+            return new JsonResponse($group->export(),200);
+        }
+        else
+            return new JsonResponse('',401);
+    }
+    
+    public function updateGroup (Request $request, Application $app, $id)  {
+        $groupRep = new GroupRepository();
+        //Check the role
+        if ($app['user']->role->description == 'teacher'){
+            //Is this group owned by the teacher?
+            if (!$groupRep->isGroupOwnedBy($app, $app['user']->id, $id))
+                return new JsonResponse(['error'=>"permission denied, user does not own this group"], 401);
+            $group = $groupRep->updateGroup($app, $request->request, $id);
+            if ($group == null)
+                return new JsonResponse(['error'=>"group does not exist or description is duplicated"], 403);
             return new JsonResponse($group->export(),200);
         }
         else

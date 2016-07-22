@@ -23,6 +23,15 @@ class GroupRepository{
 		return Utility::BeansToArrays($groups);
 	}
 	
+	public function isGroupOwnedBy(Application $app, $teacher_id, $group_id)
+	{
+		$groups = $this->getGroupsByTeacher($app, $teacher_id);
+		foreach($groups as $group)
+			if ($group['id'] == $group_id)
+				return true;
+		return false;
+	}
+	
 	public function createGroup(Application $app, $data)
 	{
 		//Does the description already exist?
@@ -34,6 +43,19 @@ class GroupRepository{
 		$group->user = $teacher;
     	$app['redbean']->store($group);
 	    return $group;    
+    }
+    
+    public function updateGroup(Application $app, $data, $id)
+	{
+		//Does the group exist?
+		if (($group = $app['redbean']->load( 'groupset', $id)) == null)
+			return null;
+		//Does the description already exist in another record?
+		if ($app['redbean']->findOne( 'groupset', ' description = ? and ID <> ?', [ $data->get("description"), $id ] ) != null)
+			return null;
+		$group->description = $data->get("description");
+		$app['redbean']->store($group);
+	    return $group;
     }
 	
 	

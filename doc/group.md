@@ -49,3 +49,35 @@ API per la gestione dei gruppi di studenti
 > **409** se il gruppo non può essere creato perchè esiste già
 
 > **401** Utente non autorizzato
+
+### PUT /groups/{id}
+#### Descrizione
+> Modifica la descrizione di un gruppo appartenente al docente che ha fatto la chiamata
+#### Vincoli
+> Può essere chiamata solo da un utente di tipo docente e il gruppo deve essere di sua proprietà
+#### Input 
+> Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
+#### Input JSON
+> In input viene fornita la descrizione del gruppo
+##### Esempio
+    {
+        "description":"Classe 5AI 2016",
+    }
+#### Output JSON
+> Ritorna i dati del gruppo modificato
+##### Esempio
+    {
+        "id":"2",
+        "description":"Classe 5AI 2015-2016",
+        "user_id":"1"
+    }
+#### HTTP code
+> **200** se il gruppo viene modificato
+
+> **403** se il gruppo non può essere modificato perchè esiste già la descrizione o il gruppo non appartiene al docente. Ritorna una descrizione dell'errore
+##### Esempio
+    {
+        "error":"group does not exist or description is duplicated"
+    }
+
+> **401** Utente non autorizzato

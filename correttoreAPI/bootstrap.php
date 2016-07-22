@@ -123,7 +123,8 @@ $api->get('/groups', 'group.api:getGroups')
 	->bind('get_groups');
 $api->post('/groups', 'group.api:createGroup')
 	->bind('create_group');
-
+$api->put('/groups/{id}', 'group.api:updateGroup')
+	->bind('update_group');
 
 
 

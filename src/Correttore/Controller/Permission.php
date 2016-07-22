@@ -36,7 +36,11 @@ class Permission{
 			[
 				'route' => 'groups',
 				'method' => 'POST'
-			]
+			],
+			[
+				'route' => 'groups',
+				'method' => 'PUT'
+			],
 		],
 		'student' => [
 			[
