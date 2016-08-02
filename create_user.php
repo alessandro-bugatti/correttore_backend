@@ -25,10 +25,10 @@ $user->ownGroupsetList[] = $groupset;
 $id = R::store( $groupset);
 $id = R::store( $user );
 
-$groupset= R::dispense( 'groupset' );
-$groupset->description = 'classe 4AI 2015-2016';
-$user->ownGroupsetList[] = $groupset;
-$id = R::store( $groupset);
+$groupset2= R::dispense( 'groupset' );
+$groupset2->description = 'classe 4AI 2015-2016';
+$user->ownGroupset2List[] = $groupset2;
+$id = R::store( $groupset2);
 $id = R::store( $user );
 
 
@@ -42,6 +42,7 @@ $user->token = '';
 $user->role_id = '2';
 
 $user->sharedGroupsetList[] = $groupset;
+$user->sharedGroupsetList[] = $groupset2;
 $id = R::store( $user );
 
 
