@@ -125,6 +125,8 @@ $api->post('/groups', 'group.api:createGroup')
 	->bind('create_group');
 $api->put('/groups/{id}', 'group.api:updateGroup')
 	->bind('update_group');
+$api->delete('/groups/{id}', 'group.api:deleteGroup')
+	->bind('delete_group');
 
 
 

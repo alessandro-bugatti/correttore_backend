@@ -57,6 +57,15 @@ class GroupRepository{
 		$app['redbean']->store($group);
 	    return $group;
     }
+    
+    public function deleteGroup(Application $app, $data, $id)
+	{
+		//Does the group exist?
+		if (($group = $app['redbean']->load( 'groupset', $id)) == null)
+			return false;
+		$app['redbean']->trash($group);
+	    return true;
+    }
 	
 	
 }

@@ -81,3 +81,16 @@ API per la gestione dei gruppi di studenti
     }
 
 > **401** Utente non autorizzato
+
+### DELETE /groups/{id}
+#### Descrizione
+> Cancella il gruppo con l'id passato, se ci sono utenti nel gruppo viene eliminata la loro associazione al gruppo, ma non gli utenti.
+#### Vincoli
+> Può essere chiamata solo da un utente di tipo docente e che possiede il gruppo
+#### Input 
+> Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
+#### HTTP code
+
+> **204** se il gruppo viene cancellato
+
+> **404** o **401** in caso di errore

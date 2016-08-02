@@ -53,4 +53,18 @@ class GroupController{
             return new JsonResponse('',401);
     }
     
+    public function deleteGroup (Request $request, Application $app, $id)  {
+        $groupRep = new GroupRepository();
+        //Check the role
+        if ($app['user']->role->description == 'teacher'){
+            //Is this group owned by the teacher?
+            if (!$groupRep->isGroupOwnedBy($app, $app['user']->id, $id))
+                return new JsonResponse(['error'=>"permission denied, user does not own this group or the group does not exist"], 401);
+            if ($groupRep->deleteGroup($app, $request->request, $id) == true)
+                return new JsonResponse('',204);
+            return new JsonResponse('',404);
+        }
+        else
+            return new JsonResponse('',401);
+    }   
 }
