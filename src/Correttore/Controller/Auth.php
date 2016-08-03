@@ -6,7 +6,7 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Correttore\User\UserRepository;
+use Correttore\Model\UserRepository;
 
 class Auth{
     /**

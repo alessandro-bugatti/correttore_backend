@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use Correttore\User\UserRepository;
+use Correttore\Model\UserRepository;
 use Correttore\Controller;
 
 // Create the Silex application
@@ -46,7 +46,7 @@ $app->before(function (Request $request, Silex\Application $app) {
             $method = $request->getMethod();
             if ($app['user'] == null ||
                     !Controller\Permission::isGranted($app['user']->role->description, $method, $route))
-                return new JsonResponse(['error'=>'Unauthorized'], 401);
+                {echo $method; echo $route; return new JsonResponse(['error'=>'Unauthorized'], 401);}
             }
         else
             return new JsonResponse(['error'=>'Forbidden'], 403);
@@ -71,7 +71,7 @@ $app->after(function (Request $request, Response $response) {
 $app['auth.api'] = $app->share(function() { return new Controller\Auth(); });
 $app['user.api'] = $app->share(function() { return new Controller\UserController(); });
 $app['task.api'] = $app->share(function() { return new Controller\TaskController(); });
-
+$app['group.api'] = $app->share(function() { return new Controller\GroupController(); });
 
 $api = $app['controllers_factory'];
 
@@ -117,6 +117,20 @@ $api->get('/tasks/{id}', 'task.api:getTask')
 	->bind('get_task');
 $api->get('/tasks', 'task.api:getTasks')
 	->bind('get_tasks');
+
+//Groups
+$api->get('/groups', 'group.api:getGroups')
+	->bind('get_groups');
+$api->post('/groups', 'group.api:createGroup')
+	->bind('create_group');
+$api->put('/groups/{id}', 'group.api:updateGroup')
+	->bind('update_group');
+$api->delete('/groups/{id}', 'group.api:deleteGroup')
+	->bind('delete_group');
+$api->put('/groups/{group_id}/student/{user_id}', 'group.api:addUserToGroup')
+	->bind('add_user_to_group');
+$api->delete('/groups/{group_id}/student/{user_id}', 'group.api:removeUserFromGroup')
+	->bind('remove_user_from_group');
 
 $app->boot();
 

@@ -29,6 +29,22 @@ class Permission{
 				'route' => 'logout',
 				'method' => 'GET'
 			],
+			[
+				'route' => 'groups',
+				'method' => 'GET'
+			],
+			[
+				'route' => 'groups',
+				'method' => 'POST'
+			],
+			[
+				'route' => 'groups',
+				'method' => 'PUT'
+			],
+			[
+				'route' => 'groups',
+				'method' => 'DELETE'
+			],
 		],
 		'student' => [
 			[
@@ -50,12 +66,13 @@ class Permission{
 				'method' => $method
 	        ];
 	    return in_array($search, self::$permissions[$role]);
+	    //return preg_grep()
 	}
 	
 
     public static function publicRoute($route)
     {
-        if ($route == '/public')
+    	if ($route == 'public')
             return true;
         return false;
     }

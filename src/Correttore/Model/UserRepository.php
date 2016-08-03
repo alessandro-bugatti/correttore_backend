@@ -103,4 +103,19 @@ class UserRepository{
 		$app['redbean']->trash($user);
 	    return true;    
     }
+    
+    /**
+     * Ckeck if a user is a student or not
+     * @param Application $app Silex application
+     * @param int $id User id
+     * @return bool True if the user is a student, false otherwise
+     */
+    public function isStudent(Application $app, $id){
+    	if (($user = $app['redbean']->load( 'user', $id )) == null)
+			return false;
+		if ($user->role->description != 'student')
+			return false;
+		return true;
+    }
+    	
 }
