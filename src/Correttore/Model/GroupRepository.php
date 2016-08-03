@@ -66,6 +66,23 @@ class GroupRepository{
 		$app['redbean']->trash($group);
 	    return true;
     }
+    
+    /**
+     * Add a student to a group
+     * @param Application $app Silex application
+     * @param int $group_id Group id
+     * @param int $user_id User_id
+     * @return boolean True if the user has been added, false otherwise
+     */
+    public function addUserToGroup(Application $app,$group_id,$user_id)
+	{
+		//Does the group exist?
+		if (($group = $app['redbean']->load( 'groupset', $group_id)) == null)
+			return false;
+		$group->sharedUserList[] = $app['redbean']->load( 'user', $user_id);
+		$app['redbean']->store($group);
+	    return true;
+    }
 	
 	
 }

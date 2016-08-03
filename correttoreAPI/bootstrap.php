@@ -46,7 +46,7 @@ $app->before(function (Request $request, Silex\Application $app) {
             $method = $request->getMethod();
             if ($app['user'] == null ||
                     !Controller\Permission::isGranted($app['user']->role->description, $method, $route))
-                return new JsonResponse(['error'=>'Unauthorized'], 401);
+                {echo $method; echo $route; return new JsonResponse(['error'=>'Unauthorized'], 401);}
             }
         else
             return new JsonResponse(['error'=>'Forbidden'], 403);
@@ -127,7 +127,8 @@ $api->put('/groups/{id}', 'group.api:updateGroup')
 	->bind('update_group');
 $api->delete('/groups/{id}', 'group.api:deleteGroup')
 	->bind('delete_group');
-
+$api->put('/groups/{group_id}/student/{user_id}', 'group.api:addUserToGroup')
+	->bind('add_user_to_group');
 
 
 $app->boot();

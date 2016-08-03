@@ -66,6 +66,7 @@ class Permission{
 				'method' => $method
 	        ];
 	    return in_array($search, self::$permissions[$role]);
+	    //return preg_grep()
 	}
 	
 
