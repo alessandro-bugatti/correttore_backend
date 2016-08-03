@@ -95,5 +95,31 @@ class GroupController{
             return new JsonResponse('',401);
     }   
     
+    /**
+     * Remove a student from a group
+     * @param Application $app Silex application
+     * @param int $group_id Group id
+     * @param int $user_id User_id
+     * @return JsonResponse The JSON response
+     */
+    public function removeUserFromGroup (Application $app, $group_id, $user_id)  {
+        $groupRep = new GroupRepository();
+        $userRep = new UserRepository();
+        //Check the role
+        if ($app['user']->role->description == 'teacher'){
+            //Is this group owned by the teacher?
+            if (!$groupRep->isGroupOwnedBy($app, $app['user']->id, $group_id))
+                return new JsonResponse(['error'=>"permission denied, user does not own this group or the group does not exist"], 401);
+            //Does the user is a student or does the student exist?
+            if (!$userRep->isStudent($app,$user_id))
+                return new JsonResponse(['error'=>"permission denied, user is not a student or the student does not exist"], 401);
+            if ($groupRep->removeUserFromGroup($app, $group_id, $user_id) == true)
+                return new JsonResponse('',204);
+            return new JsonResponse('',404);
+        }
+        else
+            return new JsonResponse('',401);
+    }   
+    
     
 }

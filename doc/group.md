@@ -107,3 +107,16 @@ API per la gestione dei gruppi di studenti
 > **204** se lo studente viene aggiunto al gruppo
 
 > **404** o **401** in caso di errore
+
+### DELETE /groups/{group_id}/student/{user_id}
+#### Descrizione
+> Rimuove lo studente individuato da user_id dal gruppo individuato da group_id
+#### Vincoli
+> Può essere chiamata solo da un utente di tipo docente e che possiede il gruppo. Inoltre lo user_id deve essere di uno studente. La chiamata è idempotente, quindi se chiamata più volte non modifica il risultato.
+#### Input 
+> Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
+#### HTTP code
+
+> **204** se lo studente viene rimosso dal gruppo
+
+> **404** o **401** in caso di errore

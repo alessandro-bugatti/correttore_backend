@@ -83,6 +83,23 @@ class GroupRepository{
 		$app['redbean']->store($group);
 	    return true;
     }
+    
+    /**
+     * Remove a student from a group
+     * @param Application $app Silex application
+     * @param int $group_id Group id
+     * @param int $user_id User_id
+     * @return boolean True if the user has been removed, false otherwise
+     */
+    public function removeUserFromGroup(Application $app,$group_id,$user_id)
+	{
+		//Does the group exist?
+		if (($group = $app['redbean']->load( 'groupset', $group_id)) == null)
+			return false;
+		unset($group->sharedUserList[$user_id]);
+		$app['redbean']->store($group);
+	    return true;
+    }
 	
 	
 }

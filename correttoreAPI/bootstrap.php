@@ -129,7 +129,8 @@ $api->delete('/groups/{id}', 'group.api:deleteGroup')
 	->bind('delete_group');
 $api->put('/groups/{group_id}/student/{user_id}', 'group.api:addUserToGroup')
 	->bind('add_user_to_group');
-
+$api->delete('/groups/{group_id}/student/{user_id}', 'group.api:removeUserFromGroup')
+	->bind('remove_user_from_group');
 
 $app->boot();
 
