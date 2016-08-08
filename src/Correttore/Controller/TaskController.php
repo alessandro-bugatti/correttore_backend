@@ -25,5 +25,14 @@ class TaskController{
         return new JsonResponse($tasks, 200);
     }
     
+    public function createTask (Application $app, Request $request)
+    {
+        $tasksRep = new TaskRepository();
+        $task = $tasksRep->createTask($app, $request->request, $request->files);
+        if ($task != null)
+            return new JsonResponse($task->export(), 200);
+        else
+            return new JsonResponse('',409);
+    }
 }
 
