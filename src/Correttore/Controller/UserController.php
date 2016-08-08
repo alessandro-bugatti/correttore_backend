@@ -78,7 +78,7 @@ class UserController{
     public function createTeacher(Request $request, Application $app)  {
         //Check the role
         if ($request->request->get("role") != 'teacher')
-            return new JsonResponse(["error" => "Wrong role"], 403);
+            return new JsonResponse(["error", "Wrong role"], 403);
         return $this->createUser($request, $app);
     }
     
@@ -89,7 +89,7 @@ class UserController{
     public function updateTeacher (Request $request, Application $app, $id)  {
         //Check the role
         if ($request->request->get("role") != 'teacher')
-            return new JsonResponse(["error" => "Wrong role"], 403);
+            return new JsonResponse(["error", "Wrong role"], 403);
         return $this->updateUser($request, $app, $id);
     }
     
