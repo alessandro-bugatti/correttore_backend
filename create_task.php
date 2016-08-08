@@ -21,6 +21,7 @@ $task->level = '1';
 $task->test_cases = '10';
 $task->solution = 'solution.zip';
 $task->category_id = '1';
+$task->user_id = '1';
 
 
 
@@ -39,6 +40,7 @@ $task->level = '1';
 $task->test_cases = '10';
 $task->solution = 'solution.zip';
 $task->category_id = '1';
+$task->user_id = '1';
 
 $id = R::store( $task );
 
