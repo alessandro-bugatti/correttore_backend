@@ -17,12 +17,9 @@
         "id":"1",
         "title":"Somma due interi",
         "short_title":"somma",
-        "description":"somma.pdf",
-        "material":"somma.zip",
         "is_public":"1",
         "level":"1",
         "test_cases":"10",
-        "solution":"solution.zip",
         "category_id":"1"
     }
 #### HTTP code
