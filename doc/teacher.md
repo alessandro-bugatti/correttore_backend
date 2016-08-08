@@ -117,12 +117,6 @@ API per la gestione dei docenti
 > Può essere chiamata solo da un utente di tipo admin
 #### Input 
 > Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
-##### Esempio
-    {
-        "name":"Cristina",
-        "surname":"Trevisani",
-        "username":"cristina"
-    }
 #### HTTP code
 > **204** se l'utente viene cancellato
 
