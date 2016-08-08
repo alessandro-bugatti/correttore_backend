@@ -13,6 +13,8 @@
 #### Output JSON
 > Ritorna i dati del task
 ##### Esempio
+
+```json
     {
         "id":"1",
         "title":"Somma due interi",
@@ -22,6 +24,8 @@
         "test_cases":"10",
         "category_id":"1"
     }
+```
+
 #### HTTP code
 > **200** se viene recuperato il task
 
@@ -40,10 +44,14 @@
 #### Output JSON
 > Ritorna ID e titolo di tutti i task, come array
 ##### Esempio
+
+```json
     [
         {"id":"1","title":"Somma due interi"},
         {"id":"2","title":"Stampa due interi"}
     ]
+```
+
 #### HTTP code
 > **200** se viene recuperato l'elenco
 
@@ -65,11 +73,17 @@
 Al momento tutti i campi sono obbligatori, però l'unico controllo è fatto sulla presenza dei tre file.
 Gli esempi sono fatti con cURL e con una form HTML
 ##### Esempio cURL
+
+```bash
     curl -v -H "X-Authorization-Token: 3427a80af08fdf717529d631339a090635acf72079712c12a8a0f2498c5f87da" \
     -F title="Somma tre numeri" -F short_title="somma3" -F is_public="0" -F level="1" -F test_cases="10" \
     -F category_id="1" -F description=@prova.pdf -F solution=@prova.pdf -F material=@prova.pdf \
     https://auth-silex-test-alessandro-bugatti.c9users.io/v1/tasks
+```
+
 #### Esempio HTML
+
+```html
     <form action="https://auth-silex-test-alessandro-bugatti.c9users.io/tasks" enctype="multipart/form-data" method="post" >
         <input type="text" name="title"><br>
         <input type="text" name="short_title"><br>
@@ -86,6 +100,8 @@ Gli esempi sono fatti con cURL e con una form HTML
         <input type="file" name="material"><br>
         <input type="submit">
     </form>
+```
+
 #### Output JSON
 > Ritorna i dati del task
 ##### Esempio
@@ -104,53 +120,22 @@ Gli esempi sono fatti con cURL e con una form HTML
 
 > **409** se il task non può essere creato
 
-
-### PUT /teachers/{id}
+### DELETE /tasks/{id}
 #### Descrizione
-> Modifica l'utente con l'id passato
+> Cancella il task con l'id passato
 #### Vincoli
-> Può essere chiamata solo da un utente di tipo admin
+> Può essere chiamata solo da un utente di tipo docente e il task deve essere di sua proprietà
 #### Input 
 > Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
-#### Input JSON
-> In input vengono forniti tutti i dati dell'utente
-##### Esempio
-    {
-    "username":"cristina",
-    "name":"Cristina",
-    "surname":"Trevisani",
-    "password":"pippo",
-    "role":"teacher"
-    }
-#### Output JSON
-> Ritorna i dati dell'utente? (Da discutere)
-##### Esempio
-    {
-        "name":"Cristina",
-        "surname":"Trevisani",
-        "username":"cristina"
-    }
 #### HTTP code
-> **200** se l'utente viene modificato con successo
-
-> **403** se l'utente che si vuole modificare non è un insegnante
-
-> **409** se l'utente non può essere modificato
-
-### DELETE /teachers/{id}
-#### Descrizione
-> Cancella l'utente con l'id passato
-#### Vincoli
-> Può essere chiamata solo da un utente di tipo admin
-#### Input 
-> Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
-##### Esempio
-    {
-        "name":"Cristina",
-        "surname":"Trevisani",
-        "username":"cristina"
-    }
-#### HTTP code
-> **204** se l'utente viene cancellato
+> **204** se il task viene cancellato
 
 > **404** in caso di errore
+
+<div class="alert alert-info">
+
+#### ATTENZIONE
+> L'operazione è distruttiva, oltre a rimuovere i dati dal database elimina anche i file dal filesystem.
+Da discutere: i file sorgenti di soluzioni vengono eliminati in cascata anche loro?
+
+</div>
