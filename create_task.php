@@ -14,12 +14,9 @@ $task = R::dispense( 'task' );
 
 $task->title = 'Somma due interi';
 $task->short_title = 'somma';
-$task->description = 'somma.pdf';
-$task->material = 'somma.zip';
 $task->is_public = '1';
 $task->level = '1';
 $task->test_cases = '10';
-$task->solution = 'solution.zip';
 $task->category_id = '1';
 $task->user_id = '1';
 
@@ -33,12 +30,9 @@ $task = R::dispense( 'task' );
 
 $task->title = 'Stampa due interi';
 $task->short_title = 'stampa';
-$task->description = 'stampa.pdf';
-$task->material = 'stampa.zip';
 $task->is_public = '1';
 $task->level = '1';
 $task->test_cases = '10';
-$task->solution = 'solution.zip';
 $task->category_id = '1';
 $task->user_id = '1';
 
