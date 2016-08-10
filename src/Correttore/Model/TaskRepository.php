@@ -6,6 +6,17 @@ use Silex\Application;
 use Correttore\Util\Utility;
 
 class TaskRepository{
+	
+	public function isTaskOwnedBy(Application $app, $teacher_id, $task_id)
+	{
+		$teacher = $app['redbean']->load( 'user', $teacher_id);
+		$tasks = $teacher->ownTaskList; 
+		foreach($tasks as $task)
+			if ($task['id'] == $task_id)
+				return true;
+		return false;
+	}
+	
     /**
 	 * 
 	 */
@@ -55,5 +66,15 @@ class TaskRepository{
      		return null;
      		
 	}
+	
+	public function deleteTask(Application $app, $id)
+	{
+		//Does the task exist?
+		if (($task = $app['redbean']->load( 'task', $id )) == null)
+			return false;
+		Utility::rmTaskFolder($app, $task->short_title);
+		$app['redbean']->trash($task);
+		return true;    
+    }
 	
 }

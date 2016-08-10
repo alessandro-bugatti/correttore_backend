@@ -121,7 +121,8 @@ $api->get('/tasks', 'task.api:getTasks')
 	->bind('get_tasks');
 $api->post('/tasks', 'task.api:createTask')
 	->bind('create_task');
-
+$api->delete('/tasks/{id}', 'task.api:deleteTask')
+	->bind('delete_task');
 
 
 //Groups

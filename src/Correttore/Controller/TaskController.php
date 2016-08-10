@@ -34,5 +34,19 @@ class TaskController{
         else
             return new JsonResponse('',409);
     }
+    
+    public function deleteTask (Application $app, $id)  {
+        $tasks = new TaskRepository();
+        $task = $tasks->getTaskByID($app,$id);
+        if ($task->ID == 0)
+            return new JsonResponse('', 404);
+        if ($app['user']->role->description != 'teacher')
+            return new JsonResponse(['error'=>'Method not allowed by your role'], 403);
+        if (!$tasks->isTaskOwnedBy($app,$app['user']->id,$task->id))
+            return new JsonResponse(['error'=>'You don\'t own the task'], 403);
+        if ($tasks->deleteTask($app, $id))
+            return new JsonResponse('',200);
+        return new JsonResponse('',404);
+    }
 }
 

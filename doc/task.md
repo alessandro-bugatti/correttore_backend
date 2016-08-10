@@ -132,10 +132,7 @@ Gli esempi sono fatti con cURL e con una form HTML
 
 > **404** in caso di errore
 
-<div class="alert alert-info">
-
 #### ATTENZIONE
 > L'operazione è distruttiva, oltre a rimuovere i dati dal database elimina anche i file dal filesystem.
-Da discutere: i file sorgenti di soluzioni vengono eliminati in cascata anche loro?
+Da discutere: i file sorgenti delle eventuali soluzioni degli studenti vengono eliminati in cascata anche loro?
 
-</div>
