@@ -22,6 +22,14 @@ class Permission{
 				'method' => 'GET'
 			],
 			[
+				'route' => 'tasks',
+				'method' => 'POST'
+			],
+			[
+				'route' => 'tasks',
+				'method' => 'DELETE'
+			],
+			[
 				'route' => 'info',
 				'method' => 'GET'
 			],

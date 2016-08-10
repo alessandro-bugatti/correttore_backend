@@ -6,6 +6,7 @@ R::setup( 'mysql:host=127.0.0.1;dbname=c9',
 
 R::exec('drop table groupset_user');
 R::exec('drop table groupset');
+R::exec('drop table task');
 R::wipe('user');
 R::wipe('role');
 
@@ -74,7 +75,7 @@ $user->name = 'Alberto';
 $user->surname = 'Regosini';
 $user->username = 'alby';
 $user->password = '$2y$10$d/doEy2cRSCfIaIaoQ4QAOWdT13SzvXdVZW1M4xQxHwa.Xpk5ZygS'; //pippo
-$user->token = '';
+$user->token = '059bc89a05d7590fbdda8c04503c70a7966248c4a4b6c4a3204d51209812d5a2';
 $user->role_id = '1';
 $id = R::store( $user );
 

@@ -14,6 +14,7 @@ use Correttore\Controller;
 // Create the Silex application
 $app = new Silex\Application();
 
+
 $app->register(new RedBeanServiceProvider());
 $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 
@@ -38,15 +39,16 @@ $app->before(function (Request $request, Silex\Application $app) {
     else 
         $len -= 4;
     $route = substr($request->getRequestURI(), 4, $len);
-        
     if (!Controller\Permission::publicRoute($route) && $request->getMethod() != 'OPTIONS')
-        if (($token = $request->headers->get('x-authorization-token')) != null) {
+        if (($token = $request->headers->get('X-Authorization-Token')) != null) {
             $users = new UserRepository();
             $app['user'] = $users->getUserByToken($app,$token);
             $method = $request->getMethod();
             if ($app['user'] == null ||
                     !Controller\Permission::isGranted($app['user']->role->description, $method, $route))
-                {echo $method; echo $route; return new JsonResponse(['error'=>'Unauthorized'], 401);}
+                {
+                    return new JsonResponse(['error'=>'Unauthorized'], 401);
+                }
             }
         else
             return new JsonResponse(['error'=>'Forbidden'], 403);
@@ -57,7 +59,7 @@ $app->before(function (Request $request, Silex\Application $app) {
 
 $app->match("{url}", function($url) use ($app){
         return "OK";
-    })->assert('url', '.*')->method("OPTIONS"); 
+    })->assert('url', '.*')->method("GET, OPTIONS"); 
 
 $app->after(function (Request $request, Response $response) {
             $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, x-authorization-token');
@@ -117,6 +119,11 @@ $api->get('/tasks/{id}', 'task.api:getTask')
 	->bind('get_task');
 $api->get('/tasks', 'task.api:getTasks')
 	->bind('get_tasks');
+$api->post('/tasks', 'task.api:createTask')
+	->bind('create_task');
+$api->delete('/tasks/{id}', 'task.api:deleteTask')
+	->bind('delete_task');
+
 
 //Groups
 $api->get('/groups', 'group.api:getGroups')
@@ -136,5 +143,6 @@ $app->boot();
 
 $app->mount('/v' . $app['version'], $api);
 // This should be the last line
+
 $app->run(); // Start the application, i.e. handle the request
 ?>
