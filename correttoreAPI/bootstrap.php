@@ -59,7 +59,7 @@ $app->before(function (Request $request, Silex\Application $app) {
 
 $app->match("{url}", function($url) use ($app){
         return "OK";
-    })->assert('url', '.*')->method("GET, OPTIONS"); 
+    })->assert('url', '.*')->method("OPTIONS"); 
 
 $app->after(function (Request $request, Response $response) {
             $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, x-authorization-token');
