@@ -74,6 +74,7 @@ $app['auth.api'] = $app->share(function() { return new Controller\Auth(); });
 $app['user.api'] = $app->share(function() { return new Controller\UserController(); });
 $app['task.api'] = $app->share(function() { return new Controller\TaskController(); });
 $app['group.api'] = $app->share(function() { return new Controller\GroupController(); });
+$app['category.api'] = $app->share(function() { return new Controller\CategoryController(); });
 
 $api = $app['controllers_factory'];
 
@@ -138,6 +139,15 @@ $api->put('/groups/{group_id}/student/{user_id}', 'group.api:addUserToGroup')
 	->bind('add_user_to_group');
 $api->delete('/groups/{group_id}/student/{user_id}', 'group.api:removeUserFromGroup')
 	->bind('remove_user_from_group');
+
+//Categories
+$api->get('/public/categories', 'category.api:getCategories')
+	->bind('get_categories');
+$api->get('/categories/{id}', 'category.api:getCategory')
+	->bind('get_category');
+$api->post('/categories', 'category.api:createCategory')
+	->bind('create_category');
+
 
 $app->boot();
 
