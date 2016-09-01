@@ -152,6 +152,8 @@ $api->post('/categories', 'category.api:createCategory')
 //Problems: a problem is a task from the point of view of the student
 $api->get('/public/problems', 'problem.api:getPublicProblems')
 	->bind('get_public_problems');
+$api->get('/public/problems/{id}.pdf', 'problem.api:getPublicProblemPDF')
+	->bind('get_public_problem_pdf');
 $api->get('/public/problems/{id}', 'problem.api:getPublicProblem')
 	->bind('get_public_problem');
 
