@@ -20,9 +20,6 @@ $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 
 require 'conf.php';
 
-// Add the configuration, etc. here
-$app['debug'] = true;
-
 //Preprocessing application/json data to insert them in
 //the request object
 
