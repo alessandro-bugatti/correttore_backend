@@ -75,6 +75,7 @@ $app['user.api'] = $app->share(function() { return new Controller\UserController
 $app['task.api'] = $app->share(function() { return new Controller\TaskController(); });
 $app['group.api'] = $app->share(function() { return new Controller\GroupController(); });
 $app['category.api'] = $app->share(function() { return new Controller\CategoryController(); });
+$app['problem.api'] = $app->share(function() { return new Controller\ProblemController(); });
 
 $api = $app['controllers_factory'];
 
@@ -147,6 +148,12 @@ $api->get('/categories/{id}', 'category.api:getCategory')
 	->bind('get_category');
 $api->post('/categories', 'category.api:createCategory')
 	->bind('create_category');
+
+//Problems: a problem is a task from the point of view of the student
+$api->get('/public/problems', 'problem.api:getPublicProblems')
+	->bind('get_public_problems');
+$api->get('/public/problems/{id}', 'problem.api:getPublicProblem')
+	->bind('get_public_problem');
 
 
 $app->boot();
