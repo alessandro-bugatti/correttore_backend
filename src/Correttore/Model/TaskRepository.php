@@ -55,7 +55,7 @@ class TaskRepository{
     	$task->category_id = $data->get("category_id");
     	$task->user_id = $app['user']->id;
     	//Files management
-    	if ($files->has('description') && $files->has('solution') && $files->has('solution')){
+    	if ($files->has('description') && $files->has('solution') && $files->has('material')){
 			Utility::storeFile($app, $task->short_title, $files->get('description'),'description','pdf');  
 			Utility::storeFile($app, $task->short_title, $files->get('solution'),'solution','zip');
 			Utility::storeFile($app, $task->short_title, $files->get('material'),'material','zip');
