@@ -91,7 +91,7 @@ class UserRepository{
     	$user->password = password_hash($data->get("username"),PASSWORD_DEFAULT);
     	$user->role = $role; 
     	//$app['redbean']->begin();
-	    $app['redbean']->store($user);
+		$app['redbean']->store($user);
 	    return $user;    
     }
     

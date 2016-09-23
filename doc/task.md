@@ -120,6 +120,46 @@ Gli esempi sono fatti con cURL e con una form HTML
 
 > **409** se il task non può essere creato
 
+### POST /tasks/{id}
+#### Descrizione
+> Modifica un task esistente
+#### Vincoli
+> Può essere chiamata solo da un utente di tipo docente, l'id deve esistere e deve essere di proprietà del docente che fa la richiesta
+#### Input 
+> Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
+#### Input multipart/form-data
+> In input vengono forniti tutti i dati del task, più eventualmente tre file: il testo pdf, un file zip contenente i materiali che sono stati usati per la creazione del task (sorgenti, esempi, immagini) e un file zip contenente le soluzioni. 
+Nessuno dei campi è obbligatorio, anche se probabilmente i campi di dati verranno spediti a ogni richiesta, mentre i file sono opzionale, vengono spediti solo se devono essere effettivamente modificati e sovrascrivono quelli già presenti.
+L'esempio è fatto con cURL
+##### Esempio 
+
+```bash
+    curl -v -H "X-Authorization-Token: 3427a80af08fdf717529d631339a090635acf72079712c12a8a0f2498c5f87da" \
+    -F title="Somma quattro numeri" -F short_title="somma4" -F solution=@prova.pdf \
+    https://auth-silex-test-alessandro-bugatti.c9users.io/v1/tasks/3
+```
+
+#### Output JSON
+> Ritorna i dati del task
+##### Esempio
+    {
+        "id":"3",
+        "title":"Somma quattro numeri",
+        "short_title":"somma4",
+        "is_public":"0",
+        "level":"1",
+        "test_cases":"10",
+        "category_id":"1",
+        "user_id":"1"
+    }
+#### HTTP code
+> **202** se il task viene modificato
+
+> **409** con errore "The user doesn't own the task" se l'id del task non esiste
+
+> **409** con errore "The task doesn't exist" se il task non appartiene all'utente che ha fatto la richiesta
+
+
 ### DELETE /tasks/{id}
 #### Descrizione
 > Cancella il task con l'id passato

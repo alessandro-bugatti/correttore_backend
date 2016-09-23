@@ -35,6 +35,18 @@ class TaskController{
             return new JsonResponse('',409);
     }
     
+    public function updateTask (Application $app, Request $request, $id)
+    {
+        $tasksRep = new TaskRepository();
+        $task = $tasksRep->updateTask($app, $request->request, $request->files, $id);
+        if ($task == null)
+            return new JsonResponse(["error" => "The user doesn't own the task"],409);
+        else if ($task->id == 0)
+            return new JsonResponse(["error" => "The task doesn't exist"],409);
+        else    
+            return new JsonResponse($task->export(), 202);
+    }
+    
     public function deleteTask (Application $app, $id)  {
         $tasks = new TaskRepository();
         $task = $tasks->getTaskByID($app,$id);

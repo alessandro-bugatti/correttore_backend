@@ -27,6 +27,10 @@ class Permission{
 			],
 			[
 				'route' => 'tasks',
+				'method' => 'PUT'
+			],
+			[
+				'route' => 'tasks',
 				'method' => 'DELETE'
 			],
 			[

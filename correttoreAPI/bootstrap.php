@@ -59,7 +59,7 @@ $app->match("{url}", function($url) use ($app){
     })->assert('url', '.*')->method("OPTIONS"); 
 
 $app->after(function (Request $request, Response $response) {
-            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, x-authorization-token');
+            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Content-Length, x-authorization-token');
             $response->headers->set('Access-Control-Allow-Origin', '*');
             $response->headers->set('Access-Control-Allow-Methods','POST, GET, PUT, DELETE, OPTIONS');
         });
@@ -120,6 +120,8 @@ $api->get('/tasks', 'task.api:getTasks')
 	->bind('get_tasks');
 $api->post('/tasks', 'task.api:createTask')
 	->bind('create_task');
+$api->post('/tasks/{id}', 'task.api:updateTask')
+	->bind('update_task');
 $api->delete('/tasks/{id}', 'task.api:deleteTask')
 	->bind('delete_task');
 

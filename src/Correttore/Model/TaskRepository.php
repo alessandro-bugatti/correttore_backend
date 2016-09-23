@@ -67,6 +67,47 @@ class TaskRepository{
      		
 	}
 	
+	/**
+	 * Update a task
+	 * @param Application $app Silex application
+	 * @param array $data The fields of the task
+	 * @param file $files The file bag
+	 * @return object An object containing the task attributes if the record has been updated, 
+	 * null otherwise
+	 */
+	public function updateTask(Application $app, $data, $files, $id)
+	{
+		$task = $app['redbean']->load( 'task', $id);
+		//Does the task exist?
+		if ($task->id == 0)
+			return $task;
+		//Is the task owned by the user?
+		if($task->user_id != $app['user']->id)
+			return null;
+		if ($data->get("title")!=null)
+			$task->title = $data->get("title");
+    	if ($data->get("short_title") != null)
+    		$task->short_title = $data->get("short_title");
+    	if ($data->get("is_public") != null)
+    		$task->is_public = $data->get("is_public");
+    	if ($data->get("level") != null)
+    		$task->level = $data->get("level");
+    	if ($data->get("task_cases") != null)
+    		$task->test_cases = $data->get("test_cases");
+    	if ($data->get("category_id") != null)
+    		$task->category_id = $data->get("category_id");
+    	//$task->user_id = $app['user']->id;
+    	//Files management
+    	if ($files->has('description'))
+			Utility::storeFile($app, $task->short_title, $files->get('description'),'description','pdf');  
+		if ($files->has('solution') )	
+			Utility::storeFile($app, $task->short_title, $files->get('solution'),'solution','zip');
+     	if ($files->has('material'))	
+     		Utility::storeFile($app, $task->short_title, $files->get('material'),'material','zip');
+     	$app['redbean']->store($task);
+	    return $task;
+	}
+	
 	public function deleteTask(Application $app, $id)
 	{
 		//Does the task exist?
