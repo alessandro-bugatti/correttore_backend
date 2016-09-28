@@ -52,7 +52,7 @@ class CategoryController{
             $category = $categoryRep->createCategory($app, $request->request);
             if ($category == null)
                 return new JsonResponse(['error'=>'category already exist'], 409);
-            return new JsonResponse($category->export(),200);
+            return new JsonResponse($category->export(),201);
         }
         else
             return new JsonResponse('',401);
