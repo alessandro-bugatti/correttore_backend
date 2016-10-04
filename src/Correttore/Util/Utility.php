@@ -38,4 +38,19 @@ class Utility{
     {
         self::removeDir($app['task.path'] . $folder);
     }
+    
+    public static function rmEvaluationFolder($folder)
+    {
+        self::removeDir($folder);
+    }
+    
+    public static function createEvaluationRandomFolder(Application $app)
+    {
+        $test_dir = $app['evaluation.dir'] . "/" . md5(microtime() . mt_rand());
+        if (!mkdir($test_dir,0777,true))
+            return null;
+        else {
+            return $test_dir;
+        }
+    }
 }

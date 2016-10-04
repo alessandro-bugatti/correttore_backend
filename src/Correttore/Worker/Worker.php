@@ -3,22 +3,23 @@
 namespace Correttore\Worker;
 
 use Silex\Application;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Factory to create different kind of worker. Now is only a kind of a stub
+ * This abstract class is the parent of all the concrete classes, each of them 
+ * is able to solve a particular kind of problem (cpp, sql, java,...)
  */
 
 
 abstract class Worker{
+    protected $app;
+    
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
     
     /**
-     * This abstract class is the parent of all the concrete classes, each of them 
-     * is able to solve a particular kind of problem (cpp, sql, java,...)
-     * @param Application $app Silex application
+     * Solve the problem
      */
-    abstract public function execute(Application $app);
-    
+    abstract public function execute($file, $id);
 }

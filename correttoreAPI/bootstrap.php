@@ -78,6 +78,7 @@ $app['task.api'] = $app->share(function() { return new Controller\TaskController
 $app['group.api'] = $app->share(function() { return new Controller\GroupController(); });
 $app['category.api'] = $app->share(function() { return new Controller\CategoryController(); });
 $app['problem.api'] = $app->share(function() { return new Controller\ProblemController(); });
+$app['submission.api'] = $app->share(function() { return new Controller\SubmissionController(); });
 
 $api = $app['controllers_factory'];
 
@@ -161,6 +162,9 @@ $api->get('/public/problems/{id}.pdf', 'problem.api:getPublicProblemPDF')
 $api->get('/public/problems/{id}', 'problem.api:getPublicProblem')
 	->bind('get_public_problem');
 
+//Submission
+$api->post('/public/submission/{id}', 'submission.api:postPublicSubmission')
+	->bind('post_public_submission');
 
 $app->boot();
 

@@ -24,7 +24,7 @@ class WorkerFactory{
     public static function createWorker(Application $app, $type)
     {
         if ($type == "cpp")
-            return new CppWorker();
+            return new CppWorker($app);
     }
     
 }
