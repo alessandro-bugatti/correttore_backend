@@ -64,6 +64,11 @@ $app->after(function (Request $request, Response $response) {
             $response->headers->set('Access-Control-Allow-Methods','POST, GET, PUT, DELETE, OPTIONS');
         });
 
+//Exception handling
+$app->error(function (\Exception $e, $code) {
+    return new Response($e->getMessage());
+});
+
 # ROUTING
 
 
