@@ -49,6 +49,10 @@ $app->before(function (Request $request, Silex\Application $app) {
             }
         else
             return new JsonResponse(['error'=>'Forbidden'], 403);
+    if (($token = $request->headers->get('X-Authorization-Token')) != null) {
+            $users = new UserRepository();
+            $app['user'] = $users->getUserByToken($app,$token);
+    }    
 
 });
 
