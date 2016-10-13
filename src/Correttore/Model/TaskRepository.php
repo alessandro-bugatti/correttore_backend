@@ -56,9 +56,9 @@ class TaskRepository{
     	$task->user_id = $app['user']->id;
     	//Files management
     	if ($files->has('description') && $files->has('solution') && $files->has('material')){
-			Utility::storeFile($app, $task->short_title, $files->get('description'),'description','pdf');  
-			Utility::storeFile($app, $task->short_title, $files->get('solution'),'solution','zip');
-			Utility::storeFile($app, $task->short_title, $files->get('material'),'material','zip');
+			Utility::storeTaskFile($app, $task->short_title, $files->get('description'),'description','pdf');  
+			Utility::storeTaskFile($app, $task->short_title, $files->get('solution'),'solution','zip');
+			Utility::storeTaskFile($app, $task->short_title, $files->get('material'),'material','zip');
      		$app['redbean']->store($task);
 	    	return $task;
        	}
@@ -99,11 +99,11 @@ class TaskRepository{
     	//$task->user_id = $app['user']->id;
     	//Files management
     	if ($files->has('description'))
-			Utility::storeFile($app, $task->short_title, $files->get('description'),'description','pdf');  
+			Utility::storeTaskFile($app, $task->short_title, $files->get('description'),'description','pdf');  
 		if ($files->has('solution') )	
-			Utility::storeFile($app, $task->short_title, $files->get('solution'),'solution','zip');
+			Utility::storeTaskFile($app, $task->short_title, $files->get('solution'),'solution','zip');
      	if ($files->has('material'))	
-     		Utility::storeFile($app, $task->short_title, $files->get('material'),'material','zip');
+     		Utility::storeTaskFile($app, $task->short_title, $files->get('material'),'material','zip');
      	$app['redbean']->store($task);
 	    return $task;
 	}
