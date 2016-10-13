@@ -75,6 +75,10 @@ class Permission{
 				'route' => 'logout',
 				'method' => 'GET'
 			],
+			[
+				'route' => 'submissions',
+				'method' => 'POST'
+			]
 		]
 	];
 	
