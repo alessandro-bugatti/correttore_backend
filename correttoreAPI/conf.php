@@ -15,6 +15,9 @@ $app['version'] = 1;
 //Folder which contains the tasks
 $app['task.path'] = '../tasks/';
 
+//Folder which contains the users' folders
+$app['user.path'] = '../users/';
+
 //C++ driver executable
 $app['cppdriver'] = '../driver';
 
