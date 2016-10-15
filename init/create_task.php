@@ -9,6 +9,7 @@ $test = R::dispense('test');
 $test->description = "Test di prova";
 $test->is_on = '1';
 $test->creation_date = '2016-04-10';
+$test->user_id = 1;
 
 
 

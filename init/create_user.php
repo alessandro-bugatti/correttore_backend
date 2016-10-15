@@ -47,7 +47,7 @@ $user->name = 'Al';
 $user->surname = 'Gollini';
 $user->username = 'algol';
 $user->password = '$2y$10$d/doEy2cRSCfIaIaoQ4QAOWdT13SzvXdVZW1M4xQxHwa.Xpk5ZygS'; //pippo
-$user->token = '';
+$user->token = '3ca7836383f6d2b5d7789998b42488fb46d4e3ed0ad08ebb4be3919d5b1dd793';
 $user->role_id = '2';
 
 $user->sharedGroupsetList[] = $groupset;
