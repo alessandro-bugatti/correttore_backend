@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Correttore\Model\TaskRepository;
+use Correttore\Util\Utility;
 
 
 class TaskController{
@@ -22,6 +23,22 @@ class TaskController{
     public function getTasks (Application $app)  {
         $tasksRep = new TaskRepository();
         $tasks = $tasksRep->getTasks($app);
+        return new JsonResponse($tasks, 200);
+    }
+    
+    public function getTasksByTestId (Application $app, $id)  {
+        $tasksRep = new TaskRepository();
+        $tasks = $tasksRep->getTasksByTestId($app, $id);
+        $tasks = Utility::BeansToArrays($tasks);
+        foreach($tasks as &$task)
+        {
+            unset($task['short_title']);
+            unset($task['is_public']);
+            unset($task['level']);
+            unset($task['test_cases']);
+            unset($task['category_id']);
+            unset($task['user_id']);
+        }
         return new JsonResponse($tasks, 200);
     }
     

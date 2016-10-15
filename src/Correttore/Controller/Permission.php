@@ -78,6 +78,10 @@ class Permission{
 			[
 				'route' => 'submissions',
 				'method' => 'POST'
+			],
+			[
+				'route' => 'test',
+				'method' => 'GET'
 			]
 		]
 	];

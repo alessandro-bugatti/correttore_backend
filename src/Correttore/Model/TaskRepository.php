@@ -32,6 +32,12 @@ class TaskRepository{
 		return $task;
 	}
 	
+	public function getTasksByTestId(Application $app, $id)
+	{
+		$test = $app['redbean']->load('test', $id);
+		return $test->sharedTaskList;
+	}
+	
 	/**
 	 * Create a new task
 	 * @param Application $app Silex application

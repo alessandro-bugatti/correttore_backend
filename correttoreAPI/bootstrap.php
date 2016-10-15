@@ -128,12 +128,15 @@ $api->get('/tasks/{id}', 'task.api:getTask')
 	->bind('get_task');
 $api->get('/tasks', 'task.api:getTasks')
 	->bind('get_tasks');
+$api->get('/test/{id}/tasks', 'task.api:getTasksByTestId')
+	->bind('get_tasks_by_test_id');
 $api->post('/tasks', 'task.api:createTask')
 	->bind('create_task');
 $api->post('/tasks/{id}', 'task.api:updateTask')
 	->bind('update_task');
 $api->delete('/tasks/{id}', 'task.api:deleteTask')
 	->bind('delete_task');
+
 
 
 //Groups
