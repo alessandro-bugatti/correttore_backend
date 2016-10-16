@@ -30,15 +30,7 @@ class TaskController{
         $tasksRep = new TaskRepository();
         $tasks = $tasksRep->getTasksByTestId($app, $id);
         $tasks = Utility::BeansToArrays($tasks);
-        foreach($tasks as &$task)
-        {
-            unset($task['short_title']);
-            unset($task['is_public']);
-            unset($task['level']);
-            unset($task['test_cases']);
-            unset($task['category_id']);
-            unset($task['user_id']);
-        }
+        Utility::RemoveFieldsFromArrays($tasks, ['short_title','is_public','level','test_cases','category_id', 'user_id']);
         return new JsonResponse($tasks, 200);
     }
     

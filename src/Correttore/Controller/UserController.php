@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Correttore\Model\UserRepository;
+use Correttore\Util\Utility;
 
 class UserController{
     
