@@ -8,7 +8,7 @@ use Correttore\Util\Utility;
 
 class ProblemRepository{
     /**
-     * Get the list of public problem
+     * Get the list of public problems
      * @param Application $app Silex application
      * @return Array The list of IDs and title of public problems
      */
