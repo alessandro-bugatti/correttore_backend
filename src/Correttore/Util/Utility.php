@@ -12,6 +12,26 @@ class Utility{
 			$items[] = $bean->export();
 		return $items;
     }
+    /**
+     * Remove some fields from an array
+     * @param array &$array The array that has fields to be removed
+     * @param array $toRemove The list of fields to be removed
+     */
+    public static function RemoveFieldsFromArray(&$array, $toRemove)
+    {
+        foreach ($toRemove as $field)
+                unset($array[$field]);
+    }
+    /**
+     * Remove some fields from an array of arrays
+     * @param array &$array The array containing arrays that have fields to be removed
+     * @param array $toRemove The list of fields to be removed
+     */
+    public static function RemoveFieldsFromArrays(&$array, $toRemove)
+    {
+        foreach ($array as &$row)
+            self::RemoveFieldsFromArray($row, $toRemove);
+    }
     
     public static function storeTaskFile(Application $app, $folder, $file, $name, $type = '')
     {
