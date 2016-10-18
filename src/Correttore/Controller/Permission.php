@@ -65,6 +65,22 @@ class Permission{
 				'route' => 'categories',
 				'method' => 'POST'
 			],
+			[
+				'route' => 'tests',
+				'method' => 'GET'
+			],
+			[
+				'route' => 'tests',
+				'method' => 'POST'
+			],
+			[
+				'route' => 'tests',
+				'method' => 'PUT'
+			],
+			[
+				'route' => 'tests',
+				'method' => 'DELETE'
+			]
 		],
 		'student' => [
 			[
@@ -80,7 +96,7 @@ class Permission{
 				'method' => 'POST'
 			],
 			[
-				'route' => 'test',
+				'route' => 'tests',
 				'method' => 'GET'
 			]
 		]

@@ -83,6 +83,7 @@ $app['group.api'] = $app->share(function() { return new Controller\GroupControll
 $app['category.api'] = $app->share(function() { return new Controller\CategoryController(); });
 $app['problem.api'] = $app->share(function() { return new Controller\ProblemController(); });
 $app['submission.api'] = $app->share(function() { return new Controller\SubmissionController(); });
+$app['test.api'] = $app->share(function() { return new Controller\TestController(); });
 
 $api = $app['controllers_factory'];
 
@@ -123,13 +124,10 @@ $api->delete('/teachers/{id}', 'user.api:deleteTeacher')
 	
 	
 //Tasks
-
 $api->get('/tasks/{id}', 'task.api:getTask')
 	->bind('get_task');
 $api->get('/tasks', 'task.api:getTasks')
 	->bind('get_tasks');
-$api->get('/test/{id}/tasks', 'task.api:getTasksByTestId')
-	->bind('get_tasks_by_test_id');
 $api->post('/tasks', 'task.api:createTask')
 	->bind('create_task');
 $api->post('/tasks/{id}', 'task.api:updateTask')
@@ -168,11 +166,27 @@ $api->get('/public/problems/{id}.pdf', 'problem.api:getPublicProblemPDF')
 	->bind('get_public_problem_pdf');
 $api->get('/public/problems/{id}', 'problem.api:getPublicProblem')
 	->bind('get_public_problem');
+$api->get('/tests/{id}/tasks', 'task.api:getTasksByTestId')
+	->bind('get_tasks_by_test_id');
 
 //Submission
 $api->post('/public/submission/{id}', 'submission.api:postPublicSubmission')
 	->bind('post_public_submission');
 
+//Test
+$api->get('/tests', 'test.api:getTests')
+	->bind('get_tests');
+$api->post('/tests', 'test.api:createTest')
+	->bind('create_test');
+$api->put('/tests/{id}', 'test.api:updateTest')
+	->bind('update_test');
+$api->delete('/tests/{id}', 'test.api:deleteTest')
+	->bind('delete_test');
+$api->put('/tests/{test_id}/task/{task_id}', 'test.api:addTaskToTest')
+	->bind('add_task_to_test');
+$api->delete('/tests/{test_id}/task/{task_id}', 'test.api:removeTaskFromTest')
+	->bind('remove_task_from_test');
+	
 $app->boot();
 
 $app->mount('/v' . $app['version'], $api);
