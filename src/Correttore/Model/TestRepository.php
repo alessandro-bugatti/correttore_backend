@@ -16,6 +16,12 @@ class TestRepository{
 		return Utility::BeansToArrays($tests);
 	}
 	
+	public function getTestByID(Application $app, $id)
+	{
+		$test = $app['redbean']->load('test', $id);
+		return $test;
+	}
+	
 	public function getTestsByTeacher(Application $app, $teacher_id)
 	{
 		$teacher = $app['redbean']->load( 'user', $teacher_id);
