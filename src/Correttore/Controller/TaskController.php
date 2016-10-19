@@ -40,6 +40,7 @@ class TaskController{
                 Utility::RemoveFieldsFromArrays($tasks, ['short_title','is_public','level','test_cases','category_id', 'user_id']);
                 return new JsonResponse($tasks, 200);
             }
+            else return new JsonResponse('',404);
         }
         else if ($app['user']->role->description == 'teacher')
         {
@@ -51,8 +52,9 @@ class TaskController{
                 Utility::RemoveFieldsFromArrays($tasks, ['short_title','is_public','level','test_cases','category_id', 'user_id']);
                 return new JsonResponse($tasks, 200);
             }
+            else return new JsonResponse('',404);
         }
-        else return new JsonResponse('',404);
+        else return new JsonResponse('',401);
     }
     
     public function createTask (Application $app, Request $request)
