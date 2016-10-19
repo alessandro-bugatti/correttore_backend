@@ -33,7 +33,7 @@ class TestController{
             $test = $testRep->createTest($app, $request->request);
             if ($test == null)
                 return new JsonResponse(['error'=>'test already exist'], 409);
-            return new JsonResponse($test->export(),200);
+            return new JsonResponse($test->export(),201);
         }
         else
             return new JsonResponse('',401);
