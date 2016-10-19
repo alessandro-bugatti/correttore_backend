@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Correttore\Model\TaskRepository;
+use Correttore\Model\TestRepository;
 use Correttore\Util\Utility;
 
 
@@ -28,10 +29,30 @@ class TaskController{
     
     public function getTasksByTestId (Application $app, $id)  {
         $tasksRep = new TaskRepository();
-        $tasks = $tasksRep->getTasksByTestId($app, $id);
-        $tasks = Utility::BeansToArrays($tasks);
-        Utility::RemoveFieldsFromArrays($tasks, ['short_title','is_public','level','test_cases','category_id', 'user_id']);
-        return new JsonResponse($tasks, 200);
+        if ($app['user']->role->description == 'student')
+        {
+            $tests = new TestRepository();
+            $test = $tests->getTestByID($app, $id);
+            if ($test->id != null && $test->is_on == 1)
+            {
+                $tasks = $tasksRep->getTasksByTestId($app, $id);
+                $tasks = Utility::BeansToArrays($tasks);
+                Utility::RemoveFieldsFromArrays($tasks, ['short_title','is_public','level','test_cases','category_id', 'user_id']);
+                return new JsonResponse($tasks, 200);
+            }
+        }
+        else if ($app['user']->role->description == 'teacher')
+        {
+            $tests = new TestRepository();
+            if ($tests->isTestOwnedBy($app,$app['user']->id, $id))
+            {
+                $tasks = $tasksRep->getTasksByTestId($app, $id);
+                $tasks = Utility::BeansToArrays($tasks);
+                Utility::RemoveFieldsFromArrays($tasks, ['short_title','is_public','level','test_cases','category_id', 'user_id']);
+                return new JsonResponse($tasks, 200);
+            }
+        }
+        else return new JsonResponse('',404);
     }
     
     public function createTask (Application $app, Request $request)
