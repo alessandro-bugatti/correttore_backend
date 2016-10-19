@@ -166,8 +166,7 @@ $api->get('/public/problems/{id}.pdf', 'problem.api:getPublicProblemPDF')
 	->bind('get_public_problem_pdf');
 $api->get('/public/problems/{id}', 'problem.api:getPublicProblem')
 	->bind('get_public_problem');
-$api->get('/tests/{id}/tasks', 'task.api:getTasksByTestId')
-	->bind('get_tasks_by_test_id');
+
 
 //Submission
 $api->post('/public/submission/{id}', 'submission.api:postPublicSubmission')
@@ -176,6 +175,8 @@ $api->post('/public/submission/{id}', 'submission.api:postPublicSubmission')
 //Test
 $api->get('/tests', 'test.api:getTests')
 	->bind('get_tests');
+$api->get('/tests/{id}/tasks', 'task.api:getTasksByTestId')
+	->bind('get_tasks_by_test_id');
 $api->post('/tests', 'test.api:createTest')
 	->bind('create_test');
 $api->put('/tests/{id}', 'test.api:updateTest')
