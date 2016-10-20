@@ -84,7 +84,7 @@ class TestController{
         if ($app['user']->role->description == 'teacher'){
             //Is this test owned by the teacher?
             if (!$testRep->isTestOwnedBy($app, $app['user']->id, $test_id))
-                return new JsonResponse(['error'=>"permission denied, task does not own this test or the test does not exist"], 401);
+                return new JsonResponse(['error'=>"permission denied, user does not own this test or the test does not exist"], 401);
             //Does the task is not public or does the task exist?
             $task = $taskRep->getTaskByID($app, $task_id);
             if ($task->id == 0 || $task->is_public)
