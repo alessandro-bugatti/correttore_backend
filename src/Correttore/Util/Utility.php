@@ -29,6 +29,9 @@ class Utility{
      */
     public static function RemoveFieldsFromArrays(&$array, $toRemove)
     {
+        if (count($array) == 0)
+            return;
+            
         foreach ($array as &$row)
             self::RemoveFieldsFromArray($row, $toRemove);
     }
