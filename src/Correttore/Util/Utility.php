@@ -10,6 +10,8 @@ class Utility{
     {
         foreach($beans as $bean)
 			$items[] = $bean->export();
+		if (count($items) == 0)
+		    return array();
 		return $items;
     }
     /**
