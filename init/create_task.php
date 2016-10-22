@@ -57,6 +57,18 @@ $task->user_id = '1';
 
 $id = R::store( $task );
 
+$task = R::dispense( 'task' );
+
+
+$task->title = 'Numeri perfetti';
+$task->short_title = 'perfetti';
+$task->is_public = '1';
+$task->level = '1';
+$task->test_cases = '10';
+$task->category_id = '1';
+$task->user_id = '1';
+
+$id = R::store( $task );
 
 R::exec('ALTER TABLE task ADD UNIQUE(title)');
 R::exec('ALTER TABLE task ADD UNIQUE(short_title)');
