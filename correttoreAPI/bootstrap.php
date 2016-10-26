@@ -169,7 +169,7 @@ $api->get('/public/problems/{id}', 'problem.api:getPublicProblem')
 
 
 //Submission
-$api->post('/public/submission/{id}', 'submission.api:postPublicSubmission')
+$api->post('/public/submissions/{id}', 'submission.api:postPublicSubmission')
 	->bind('post_public_submission');
 
 //Test
