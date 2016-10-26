@@ -38,6 +38,18 @@ class TaskRepository{
 		return $test->sharedTaskList;
 	}
 	
+	public function isTaskInTest(Application $app, $task_id, $test_id)
+	{
+		$query = 'SELECT COUNT(*) AS n_task FROM task, task_test, test '.
+			'WHERE task.id = task_test.task_id AND test.id = task_test.test_id '.
+			'AND task.id = :task_id AND test.id = :test_id';
+		$params = [':task_id' => $task_id, 'test_id' => $test_id];
+		$task = $app['redbean']->getRow( $query, $params);
+		if ($task['n_task'] == 1)
+			return true;
+		return false;
+	}
+	
 	/**
 	 * Create a new task
 	 * @param Application $app Silex application
