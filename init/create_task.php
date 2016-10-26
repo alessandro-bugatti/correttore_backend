@@ -84,6 +84,17 @@ $solution->user_id = 1;
 
 $id = R::store($solution);
 
+$solution = R::dispense('solution');
+$solution->score = 0;
+$solution->file='pacchi_2_test_1.cpp';
+$solution->submitted='2016-10-24 23:22:00';
+$solution->task_id = 2;
+$solution->user_id = 1;
+$solution->test_id = 1;
+
+$id = R::store($solution);
+
+
 $category = R::dispense( 'category' );
 $category->description = 'Sequenza';
 $category->type = 'Programmazione';
