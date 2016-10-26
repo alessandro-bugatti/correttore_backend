@@ -4,8 +4,8 @@ API per la gestione dei test, dove un test è un insieme di task che può essere
 ### GET /tests
 #### Descrizione
 > Recupera l'elenco di tutti i test: 
-    * se l'utente è uno studente è l'elenco di tutti i task attivi 
-    * se è un docente solo i propri task, attivi o no
+    * se l'utente è uno studente è l'elenco di tutti i test attivi 
+    * se è un docente solo i propri test, attivi o no
 #### Vincoli
 > Può essere chiamata solo da un utente di tipo studente o docente
 #### Input 
