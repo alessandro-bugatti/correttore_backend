@@ -42,13 +42,13 @@
 #### Input 
 > Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
 #### Output JSON
-> Ritorna ID e titolo di tutti i task, come array
+> Ritorna ID, titolo e is_public (1 se è pubblico, 0 viceversa) di tutti i task, come array
 ##### Esempio
 
 ```json
     [
-        {"id":"1","title":"Somma due interi"},
-        {"id":"2","title":"Stampa due interi"}
+        {"id":"1","title":"Somma due interi","is_public":"0"},
+        {"id":"2","title":"Stampa due interi","is_public":"1"}
     ]
 ```
 

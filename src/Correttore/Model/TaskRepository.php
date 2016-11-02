@@ -28,7 +28,7 @@ class TaskRepository{
 	
 	public function getTasks(Application $app)
 	{
-		$task = $app['redbean']->getAll( 'SELECT id, title FROM task');
+		$task = $app['redbean']->getAll( 'SELECT id, title, is_public FROM task');
 		return $task;
 	}
 	
