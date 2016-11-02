@@ -75,6 +75,9 @@ R::exec('ALTER TABLE task ADD UNIQUE(short_title)');
  
 $id = R::store($test);
 
+R::exec('ALTER TABLE task_test ADD COLUMN value int unsigned not null');
+R::exec('UPDATE task_test SET value = 10');
+
 $solution = R::dispense('solution');
 $solution->score = 5;
 $solution->file='pacchi_2.cpp';
