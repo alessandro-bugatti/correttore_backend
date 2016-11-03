@@ -195,6 +195,8 @@ $api->delete('/tests/{test_id}/task/{task_id}', 'test.api:removeTaskFromTest')
 	->bind('remove_task_from_test');
 $api->get('/tests/{test_id}/results', 'test.api:getTestResults')
 	->bind('get_test_results');
+$api->get('/tests/{test_id}/users/{user_id}/details', 'test.api:getTestResultsByUser')
+	->bind('get_test_results_by_user');
 
 
 $app->boot();

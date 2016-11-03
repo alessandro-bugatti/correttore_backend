@@ -36,7 +36,25 @@ class TestRepository{
 	    . "GROUP BY username\n"
 	    . "ORDER BY result DESC";
 		$results = $app['redbean']->getAll( $sql, [':test_id' => $test_id]);
-		return $results; //Utility::BeansToArrays($tests);
+		return $results; 
+	}
+	
+	public function getTestResultsByUser(Application $app, $test_id, $user_id)
+	{
+		$sql = "SELECT surname, name, username, short_title, "
+		. "score, test_cases, value\n"
+	    . "FROM solution, user, task, task_test WHERE \n"
+	    . "solution.user_id = user.id AND\n"
+	    . "solution.task_id = task.id AND\n"
+	    . "task_test.task_id = task.id AND\n"
+	    . "task_test.test_id = :test_id AND\n"
+	    . "solution.test_id = :test_id AND \n"
+	    . "user.id = :user_id\n"
+	    . "ORDER BY short_title";
+	    $params = [':test_id' => $test_id,
+	    		':user_id' => $user_id];
+		$results = $app['redbean']->getAll( $sql, $params);
+		return $results; 
 	}
 	
 	public function getTestsByTeacher(Application $app, $teacher_id)

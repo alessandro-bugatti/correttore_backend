@@ -30,12 +30,30 @@ class TestController{
     public function getTestResults(Application $app, $test_id)
     {
         $testsRep = new TestRepository();
-        //var_dump($app['user']);
         if ($app['user']->role->description == 'teacher'){
             //Is this test owned by the teacher?
             if (!$testsRep->isTestOwnedBy($app, $app['user']->id, $test_id))
                 return new JsonResponse(['error'=>"permission denied, user does not own this test"], 401);
             $testResults = $testsRep->getTestResults($app, $test_id);
+            return new JsonResponse($testResults,200);
+        }
+        return new JsonResponse('',401);
+    }
+    
+    public function getTestResultsByUser(Application $app, $test_id, $user_id)
+    {
+        $testsRep = new TestRepository();
+        if ($app['user']->role->description == 'teacher'){
+            //Is this test owned by the teacher?
+            if (!$testsRep->isTestOwnedBy($app, $app['user']->id, $test_id))
+                return new JsonResponse(['error'=>"permission denied, user does not own this test"], 401);
+            $testResults = $testsRep->getTestResultsByUser($app, $test_id, $user_id);
+            return new JsonResponse($testResults,200);
+        }
+        else if ($app['user']->role->description == 'student'){
+            if ($app['user']->id != $user_id)
+                return new JsonResponse(['error'=>"permission denied, user id is not correct"], 401);
+            $testResults = $testsRep->getTestResultsByUser($app, $test_id, $user_id);
             return new JsonResponse($testResults,200);
         }
         else

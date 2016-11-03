@@ -222,3 +222,44 @@ API per la gestione dei test, dove un test è un insieme di task che può essere
 > **401** se l'utente non è autorizzato o il test non esiste
 
 > **404** altri errori
+
+### GET /tests/{test_id}/users/{user_id}/details
+#### Descrizione
+> Recupera il dettaglio dei risultati di un test per un utente
+#### Vincoli
+> Può essere chiamata solo da un utente di tipo studente o docente
+#### Input 
+> Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
+#### Output JSON
+> Ritorna i risultati del test:
+    * se l'utente è uno studente viene controllato che la richiesta sia per sapere i propri risultati, altrimenti genera un errore
+    * se l'utente è un docente può visualizzare il dettaglio di qualsiasi utente che abbia svolto un proprio test
+##### Esempio
+```json
+    [
+        {
+            "surname":"Bugatti",
+            "name":"Alessandro",
+            "username":"alex",
+            "short_title":"fibonacci",
+            "score":"7",
+            "test_cases":"10",
+            "value":"2"
+        },
+        {
+            "surname":"Bugatti",
+            "name":"Alessandro",
+            "username":"alex",
+            "short_title":"mucche_vitelli",
+            "score":"5",
+            "test_cases":"10",
+            "value":"3"
+        }
+    ]
+```
+#### HTTP code
+> **200** se viene recuperato il dettaglio dei risultati
+
+> **401** se l'utente non è autorizzato
+
+> **404** altri errori
