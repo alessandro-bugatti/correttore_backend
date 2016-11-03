@@ -27,6 +27,21 @@ class TestController{
             return new JsonResponse('',401);
     }
     
+    public function getTestResults(Application $app, $test_id)
+    {
+        $testsRep = new TestRepository();
+        //var_dump($app['user']);
+        if ($app['user']->role->description == 'teacher'){
+            //Is this test owned by the teacher?
+            if (!$testsRep->isTestOwnedBy($app, $app['user']->id, $test_id))
+                return new JsonResponse(['error'=>"permission denied, user does not own this test"], 401);
+            $testResults = $testsRep->getTestResults($app, $test_id);
+            return new JsonResponse($testResults,200);
+        }
+        else
+            return new JsonResponse('',401);
+    }
+    
     public function createTest(Request $request, Application $app)  {
         $testRep = new testRepository();
         if ($app['user']->role->description == 'teacher'){

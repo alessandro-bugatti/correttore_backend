@@ -22,6 +22,23 @@ class TestRepository{
 		return $test;
 	}
 	
+	public function getTestResults(Application $app, $test_id)
+	{
+		$sql = "SELECT surname, name, username, \n"
+	    . "(SUM(score/task.test_cases*task_test.value)/\n"
+	    . "(SELECT SUM(value) FROM task_test WHERE test_id = :test_id))*100 AS result\n"
+	    . "FROM solution, user, task, task_test WHERE \n"
+	    . "solution.user_id = user.id AND\n"
+	    . "solution.task_id = task.id AND\n"
+	    . "task_test.task_id = task.id AND\n"
+	    . "task_test.test_id = :test_id AND\n"
+	    . "solution.test_id = :test_id\n"
+	    . "GROUP BY username\n"
+	    . "ORDER BY result DESC";
+		$results = $app['redbean']->getAll( $sql, [':test_id' => $test_id]);
+		return $results; //Utility::BeansToArrays($tests);
+	}
+	
 	public function getTestsByTeacher(Application $app, $teacher_id)
 	{
 		$teacher = $app['redbean']->load( 'user', $teacher_id);

@@ -171,6 +171,8 @@ $api->get('/public/problems/{id}', 'problem.api:getPublicProblem')
 //Submission
 $api->post('/public/submissions/{id}', 'submission.api:postPublicSubmission')
 	->bind('post_public_submission');
+$api->post('/public/submission/{id}', 'submission.api:postPublicSubmission')
+	->bind('post_public_submission');
 $api->post('/submissions/tests/{test_id}/tasks/{task_id}', 'submission.api:postTestSubmission')
 	->bind('post_test_submission');
 
@@ -191,7 +193,10 @@ $api->put('/tests/{test_id}/task/{task_id}', 'test.api:addTaskToTest')
 	->bind('add_task_to_test');
 $api->delete('/tests/{test_id}/task/{task_id}', 'test.api:removeTaskFromTest')
 	->bind('remove_task_from_test');
-	
+$api->get('/tests/{test_id}/results', 'test.api:getTestResults')
+	->bind('get_test_results');
+
+
 $app->boot();
 
 $app->mount('/v' . $app['version'], $api);
