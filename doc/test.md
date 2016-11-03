@@ -197,3 +197,28 @@ API per la gestione dei test, dove un test è un insieme di task che può essere
         "error":"permission denied, user does not own this test or the test does not exist"
     }
 ```
+
+### GET /tests/{id}/results
+#### Descrizione
+> Recupera i risultati di un test
+#### Vincoli
+> Può essere chiamata solo da un utente di tipo docente
+#### Input 
+> Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
+#### Output JSON
+> Ritorna i risultati del test:
+    * se lo studente non ha fatto nessuna sottomissione per nessuno dei problemi del test non compare nei risultati
+    * i risultati sono pesati con il valore che ha ogni task all'interno del test e sono espressi in 100-esimi.
+##### Esempio
+```json
+    [
+        {"surname":"Gollini","name":"Al","username":"algol","result":"60.00000000"},
+        {"surname":"Bugatti","name":"Alessandro","username":"alex","result":"58.00000000"}
+    ]
+```
+#### HTTP code
+> **200** se viene recuperato l'elenco dei risultati
+
+> **401** se l'utente non è autorizzato o il test non esiste
+
+> **404** altri errori
