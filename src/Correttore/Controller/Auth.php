@@ -25,6 +25,7 @@ class Auth{
         else
             return new JsonResponse(['error'=>'Not a valid request'], 403);
         if ($user != null ){
+            $response['id'] = $user->id;
             $response['token'] = $user->token;
             $response['username'] = $user->username;
             $response['role'] = $user->role->description;
@@ -38,6 +39,7 @@ class Auth{
         $user = $app['user'];
         if ($user == null)
             return new JsonResponse(['error'=>'Forbidden'], 403);
+        $response['id'] = $user->id;
         $response['token'] = $user->token;
         $response['username'] = $user->username;
         $response['role'] = $user->role->description;
