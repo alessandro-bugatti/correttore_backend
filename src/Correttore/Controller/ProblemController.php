@@ -39,5 +39,21 @@ class ProblemController{
         }
         else
             return new JsonResponse(['error' => "Problem doesn't exist or it is not public"], 404);
-    }    
+    }
+    
+    public function getProblemPDF (Application $app, $id)  {
+        $problems = new ProblemRepository();
+        if ($app['user']->role->description != 'student')
+            return new JsonResponse(['error' => "Only students can get a private problem"], 403);
+        $problem = $problems->getProblemByID($app, $id);
+        if ($problem['id'] != 0){
+            $pdf = $app['task.path'] . $problem['short_title'] . '/description.pdf';
+            if ( !file_exists($pdf))
+                return new JsonResponse(['error' => "PDF not found"], 404);
+            $response = new BinaryFileResponse($pdf);
+            return $response;
+        }
+        else
+            return new JsonResponse(['error' => "Problem doesn't exist or it is not public"], 404);
+    }
 }

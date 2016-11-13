@@ -166,6 +166,8 @@ $api->get('/public/problems/{id}.pdf', 'problem.api:getPublicProblemPDF')
 	->bind('get_public_problem_pdf');
 $api->get('/public/problems/{id}', 'problem.api:getPublicProblem')
 	->bind('get_public_problem');
+$api->get('/problems/{id}.pdf', 'problem.api:getProblemPDF')
+	->bind('get_problem_pdf');
 
 
 //Submission

@@ -32,4 +32,18 @@ class ProblemRepository{
 		return $problem;
 	}
 	
+	/**
+     * Get a problem identified by id
+     * @param Application $app Silex application
+     * @param int $id Problem id
+     * @return Array The desired problem in form of array, not bean
+     */
+	public function getProblemByID(Application $app, $id)
+	{
+		$problem = $app['redbean']->getRow( 'SELECT id, title, short_title, level FROM task ' .
+					'WHERE id = :id AND is_public = 0',
+        	[':id' => $id]);
+		return $problem;
+	}
+	
 }
