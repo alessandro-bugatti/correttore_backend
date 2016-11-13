@@ -24,7 +24,7 @@ class TestRepository{
 	
 	public function getTestResults(Application $app, $test_id)
 	{
-		$sql = "SELECT surname, name, username, \n"
+		$sql = "SELECT user.id AS ID, surname, name, username, \n"
 	    . "(SUM(score/task.test_cases*task_test.value)/\n"
 	    . "(SELECT SUM(value) FROM task_test WHERE test_id = :test_id))*100 AS result\n"
 	    . "FROM solution, user, task, task_test WHERE \n"
