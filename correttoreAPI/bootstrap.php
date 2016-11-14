@@ -111,17 +111,32 @@ $api->get('/teachers', 'user.api:getTeachers')
 	->bind('get_teachers');
 
 $api->post('/teachers', 'user.api:createTeacher')
-	->bind('create_teacher');
+	->bind('student');
 
 $api->get('/teachers/{id}', 'user.api:getTeacher')
-	->bind('get_teacher');
+	->bind('studenteacher');
 	
 $api->put('/teachers/{id}', 'user.api:updateTeacher')
-	->bind('update_teacher');
+	->bind('studentte_teacher');
 
 $api->delete('/teachers/{id}', 'user.api:deleteTeacher')
-	->bind('delete_teacher');
+	->bind('studentte_teacher');
 	
+//Students
+$api->get('/students', 'user.api:getStudents')
+	->bind('get_students');
+
+$api->post('/students', 'user.api:createStudent')
+	->bind('create_student');
+
+$api->get('/students/{id}', 'user.api:getStudent')
+	->bind('get_student');
+	
+$api->put('/students/{id}', 'user.api:updateStudent')
+	->bind('update_student');
+
+$api->delete('/students/{id}', 'user.api:deleteStudent')
+	->bind('delete_student');
 	
 //Tasks
 $api->get('/tasks/{id}', 'task.api:getTask')

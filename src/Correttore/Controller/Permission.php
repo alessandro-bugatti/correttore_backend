@@ -42,6 +42,22 @@ class Permission{
 				'method' => 'GET'
 			],
 			[
+				'route' => 'students',
+				'method' => 'GET'
+			],
+			[
+				'route' => 'students',
+				'method' => 'POST'
+			],
+			[
+				'route' => 'students',
+				'method' => 'PUT'
+			],
+			[
+				'route' => 'students',
+				'method' => 'DELETE'
+			],
+			[
 				'route' => 'groups',
 				'method' => 'GET'
 			],

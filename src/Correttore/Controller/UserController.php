@@ -103,4 +103,45 @@ class UserController{
             return new Response('', 403);
         return $this->deleteUser($app, $id);
     }
+
+    /*
+    *   Students
+    */
+    public function getStudents (Application $app)  {
+        $users = new UserRepository();
+        $students = $users->getUsersByRole($app,'student');
+        return new JsonResponse($students, 200);
+    }
+    
+    public function createStudent(Request $request, Application $app)  {
+        //Check the role
+        if ($request->request->get("role") != 'student')
+            return new JsonResponse(["error", "Wrong role"], 403);
+        return $this->createUser($request, $app);
+    }
+    
+    public function getStudent (Application $app, $id)  {
+        return $this->getUserByIDRole($app,$id,'student');
+    }
+    
+    public function updateStudent (Request $request, Application $app, $id)  {
+        //Check the role
+        if ($request->request->get("role") != 'student')
+            return new JsonResponse(["error", "Wrong role"], 403);
+        return $this->updateUser($request, $app, $id);
+    }
+    
+    public function deleteStudent (Application $app, $id)  {
+        $users = new UserRepository();
+        $user = $users->getUserByID($app,$id);
+        if ($user->ID == 0)
+            return new Response('', 404);
+        if ($user->role->description != 'student')
+            return new Response('', 403);
+        //TODO: Check if the student belongs to this teacher
+        //Now it is not possible because there isn't any relation
+        //between a teacher and a user
+        return $this->deleteUser($app, $id);
+    }
+    
 }
