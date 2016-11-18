@@ -190,8 +190,6 @@ $api->get('/problems/{id}', 'problem.api:getTestProblem')
 //Submission
 $api->post('/public/submissions/{id}', 'submission.api:postPublicSubmission')
 	->bind('post_public_submission');
-$api->post('/public/submission/{id}', 'submission.api:postPublicSubmission')
-	->bind('post_public_submission');
 $api->post('/submissions/tests/{test_id}/tasks/{task_id}', 'submission.api:postTestSubmission')
 	->bind('post_test_submission');
 
