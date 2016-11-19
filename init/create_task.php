@@ -75,7 +75,7 @@ R::exec('ALTER TABLE task ADD UNIQUE(short_title)');
  
 $id = R::store($test);
 
-R::exec('ALTER TABLE task_test ADD COLUMN value int unsigned not null');
+R::exec('ALTER TABLE task_test ADD COLUMN value int unsigned not null default "1"');
 R::exec('UPDATE task_test SET value = 10');
 
 $solution = R::dispense('solution');
