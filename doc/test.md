@@ -150,16 +150,22 @@ API per la gestione dei test, dove un test è un insieme di task che può essere
     }
 ```
 
-### PUT /tests/{test_id}/task/{task_id}
+### PUT /tests/{test_id}/task/{task_id}?value=numero
 #### Descrizione
-> Inserisce un task all'interno di un test: il task viene identificato dal proprio task_id e il test dal proprio test_id
+> Inserisce o aggiunge un task all'interno di un test: il task viene identificato dal proprio task_id e il test dal proprio test_id. Inoltre viene aggiunto il valore (value) associato al task all'interno di quel test. Se la coppia task-test esiste già viene aggiornato il value. 
 #### Vincoli
 > Può essere chiamata solo da un utente di tipo docente e che possiede il test. La chiamata è idempotente, quindi se chiamata più volte non modifica il risultato.
 #### Input 
 > Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
+####Esempio con cURL
+```bash
+    curl -v -X PUT -H "X-Authorization-Token: 3427a80af08fdf717529d631339a090635acf72079712c12a8a0f2498c5f87da" \
+https://auth-silex-test-alessandro-bugatti.c9users.io/v1/tests/1/task/1?value=10
+```
+
 #### HTTP code
 
-> **204** se il task viene aggiunto al test
+> **204** se il task viene aggiunto al test o il valore value viene modificato
 
 > **401** in caso di errore 
     * il test non appartiene al docente 
