@@ -118,15 +118,28 @@ class TestRepository{
      * @param int $task_id Task_id
      * @return boolean True if the task has been added, false otherwise
      */
-    public function addTaskToTest(Application $app,$test_id,$task_id)
+    public function addTaskToTest(Application $app,$test_id,$task_id, $value)
 	{
 		//Does the test exist?
 		if (($test = $app['redbean']->load( 'test', $test_id)) == null)
 			return false;
-		if (in_array($app['redbean']->load( 'task', $task_id),$test->sharedTaskList))
+		//Does the task exist?
+		if (($task = $app['redbean']->load( 'task', $task_id)) == null)
 			return false;
-		$test->sharedTaskList[] = $app['redbean']->load( 'task', $task_id);
-		$app['redbean']->store($test);
+		$task_test = $app['redbean']->findOne( 'task_test', 
+	    	' task_id = :task_id AND test_id = :test_id', 
+	    	[ ':task_id' => $task_id , 'test_id' => $test_id ] );
+	    //If the relationship doesn't exist, this creates it
+	    if ($task_test == null)
+	    {
+	    	$query = 'INSERT INTO task_test (task_id,test_id) VALUES (:task_id,:test_id)';
+	    	$params = [':task_id' => $task_id, 'test_id' => $test_id];
+	    	$app['redbean']->exec($query, $params);
+	    	$id = $app['redbean']->getInsertID();
+	    	$task_test = $app['redbean']->load('task_test', $id);
+	    }
+	    $task_test->value = $value;
+	    $app['redbean']->store($task_test);
 	    return true;
     }
     

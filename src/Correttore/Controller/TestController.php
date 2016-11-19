@@ -110,9 +110,13 @@ class TestController{
      * @param int $task_id Task_id
      * @return JsonResponse The JSON response
      */
-    public function addTaskToTest (Application $app, $test_id, $task_id)  {
+    public function addTaskToTest (Request $request,Application $app, $test_id, $task_id)  {
         $testRep = new TestRepository();
         $taskRep = new TaskRepository();
+        $params = $request->query->all();
+        $value = $params['value'];
+        if (!is_numeric($value) || $value <= 0)
+            $value = 1;
         //Check the role
         if ($app['user']->role->description == 'teacher'){
             //Is this test owned by the teacher?
@@ -122,7 +126,7 @@ class TestController{
             $task = $taskRep->getTaskByID($app, $task_id);
             if ($task->id == 0 || $task->is_public)
 			    return new JsonResponse(['error'=>"permission denied, task is public or the task does not exist"], 401);
-            if ($testRep->addTaskToTest($app, $test_id, $task_id) == true)
+            if ($testRep->addTaskToTest($app, $test_id, $task_id, $value) == true)
                 return new JsonResponse('',204);
             return new JsonResponse('',404);
         }
