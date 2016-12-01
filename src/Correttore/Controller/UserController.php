@@ -35,6 +35,7 @@ class UserController{
             unset($user->password);
             unset($user->role);
             unset($user->role_id);
+            unset($user->token);
             return new JsonResponse($user->export(), 200);
         }
         else 
