@@ -116,8 +116,9 @@ class UserController{
     
     public function createStudent(Request $request, Application $app)  {
         //Check the role
-        if ($request->request->get("role") != 'teacher')
-            return new JsonResponse(["error", "Wrong role"], 403);
+        if ($request->request->get("role") != 'student')
+            return new JsonResponse(["error" => "Wrong role", 
+                "role" => $request->request->get("role") ], 403);
         return $this->createUser($request, $app);
     }
     
@@ -127,8 +128,9 @@ class UserController{
     
     public function updateStudent (Request $request, Application $app, $id)  {
         //Check the role
-        if ($request->request->get("role") != 'teacher')
-            return new JsonResponse(["error", "Wrong role"], 403);
+        if ($request->request->get("role") != 'student')
+            return new JsonResponse(["error" => "Wrong role", 
+                "role" => $request->request->get("role") ], 403);
         return $this->updateUser($request, $app, $id);
     }
     
@@ -137,8 +139,9 @@ class UserController{
         $user = $users->getUserByID($app,$id);
         if ($user->ID == 0)
             return new Response('', 404);
-        if ($user->role->description != 'teacher')
-            return new Response('', 403);
+        if ($user->role->description != 'student')
+            return new JsonResponse(["error" => "Wrong role", 
+                "role" => $request->request->get("role") ], 403);
         //TODO: Check if the student belongs to this teacher
         //Now it is not possible because there isn't any relation
         //between a teacher and a user
