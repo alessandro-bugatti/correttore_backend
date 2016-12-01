@@ -82,8 +82,10 @@ class UserRepository{
 		if (($user = $app['redbean']->load( 'user', $id )) == null)
 			return null;
 		//Does the username already exist in another record?
-		if ($app['redbean']->findOne( 'user', ' username = ? and ID <> ?', [ $data->get("username"), $id ] ) != null)
-			return null;
+		//This control is skipped at the moment, because is not possible
+		//to change the username
+		//if ($app['redbean']->findOne( 'user', ' username = ? and ID <> ?', [ $data->get("username"), $id ] ) != null)
+		//	return null;
 		$role = $app['redbean']->findOne( 'role', ' description = ? ', [ $data->get("role") ] );
     	$user->name = $data->get("name");
     	$user->surname = $data->get("surname");
