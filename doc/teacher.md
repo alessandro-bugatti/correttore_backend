@@ -95,6 +95,7 @@ API per la gestione dei docenti
     "password":"pippo",
     "role":"teacher"
     }
+> ***Attenzione***: al momento compare il campo username, ma qualunque sia il valore non viene utilizzato perchè si considera lo username non modificabile. Il campo password può non esserci o essere vuoto, nel qual caso la password rimane invariata, se invece contiene un valore viene cambiata la password 
 #### Output JSON
 > Ritorna i dati dell'utente? (Da discutere)
 ##### Esempio
