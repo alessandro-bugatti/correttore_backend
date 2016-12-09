@@ -6,6 +6,8 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Correttore\Model\TestRepository;
 use Correttore\Model\UserRepository;
 use Correttore\Model\TaskRepository;
@@ -39,6 +41,31 @@ class TestController{
         }
         return new JsonResponse('',401);
     }
+    
+    public function getTestResultsCSV(Application $app, $test_id)
+    {
+        $testsRep = new TestRepository();
+        if ($app['user']->role->description == 'teacher'){
+            //Is this test owned by the teacher?
+            if (!$testsRep->isTestOwnedBy($app, $app['user']->id, $test_id))
+                return new JsonResponse(['error'=>"permission denied, user does not own this test"], 401);
+            $testResults = $testsRep->getTestResults($app, $test_id);
+            //CSV file creation and response
+            $filename = "test_" . $test_id . ".csv";
+            $outputBuffer = fopen($app['temporary.dir']. '/' . $filename,'w');
+            foreach($testResults as $val) {
+                fputcsv($outputBuffer, $val);
+            }
+            fclose($outputBuffer);
+            $response = new BinaryFileResponse($app['temporary.dir']. '/' . $filename);
+            //Add the file to remove in order to allow to the finish
+            //middleware to delete it
+            $app["file_to_remove"] = $app['temporary.dir']. '/' . $filename;
+            return $response;
+        }
+        return new JsonResponse('',401);
+    }
+    
     
     public function getTestResultsByUser(Application $app, $test_id, $user_id)
     {
