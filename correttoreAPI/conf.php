@@ -23,3 +23,6 @@ $app['cppdriver'] = '../driver';
 
 //Folder to store some kind of problem during evaluation phase
 $app['evaluation.dir'] = '../temp';
+
+//Folder to store temporary data
+$app['temporary.dir'] = '../temp';
