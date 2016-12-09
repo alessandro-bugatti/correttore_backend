@@ -53,6 +53,8 @@ class TestController{
             //CSV file creation and response
             $filename = "test_" . $test_id . ".csv";
             $outputBuffer = fopen($app['temporary.dir']. '/' . $filename,'w');
+            fwrite($outputBuffer,'Results of test n.' . $test_id . PHP_EOL);
+            fwrite($outputBuffer,'File created on ' . date("Y-m-d H:i:s") . PHP_EOL);
             foreach($testResults as $val) {
                 fputcsv($outputBuffer, $val);
             }
