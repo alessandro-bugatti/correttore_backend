@@ -73,6 +73,14 @@ $app->error(function (\Exception $e, $code) {
     return new Response($e->getMessage());
 });
 
+//Removing a file after the response is sent
+$app->finish(function (Request $request, Response $response) use ($app) {
+    if (isset($app["file_to_remove"])) {
+        unlink($app["file_to_remove"]);
+    }
+});
+
+
 # ROUTING
 
 
