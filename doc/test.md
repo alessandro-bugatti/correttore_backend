@@ -213,14 +213,39 @@ https://auth-silex-test-alessandro-bugatti.c9users.io/v1/tests/1/task/1?value=10
 > Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
 #### Output JSON
 > Ritorna i risultati del test:
-    * se lo studente non ha fatto nessuna sottomissione per nessuno dei problemi del test non compare nei risultati
-    * i risultati sono pesati con il valore che ha ogni task all'interno del test e sono espressi in 100-esimi.
+>* se lo studente non ha fatto nessuna sottomissione per nessuno dei problemi del test non compare nei risultati
+>* i risultati sono pesati con il valore che ha ogni task all'interno del test e sono espressi in 100-esimi.
 ##### Esempio
 ```json
     [
         {"surname":"Gollini","name":"Al","username":"algol","result":"60.00000000"},
         {"surname":"Bugatti","name":"Alessandro","username":"alex","result":"58.00000000"}
     ]
+```
+#### HTTP code
+> **200** se viene recuperato l'elenco dei risultati
+
+> **401** se l'utente non è autorizzato o il test non esiste
+
+> **404** altri errori
+
+### GET /tests/{id}/results.csv
+#### Descrizione
+> Recupera i risultati di un test sotto forma di un file in formato CSV
+#### Vincoli
+> Può essere chiamata solo da un utente di tipo docente
+#### Input 
+> Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
+#### Output CSV
+> Ritorna i risultati del test:
+>* se lo studente non ha fatto nessuna sottomissione per nessuno dei problemi del test non compare nei risultati
+>* i risultati sono pesati con il valore che ha ogni task all'interno del test e sono espressi in 100-esimi.
+>* le colonne sono nell'ordine id, cognome, nome, username, punteggio
+##### Esempio
+```csv
+    3,Gollini,Al,algol,100.00000000
+    17,Brozzoni,Daniela,daniela.brozzoni,100.00000000
+    19,Carrolo,Aldo,aldo.carrolo,100.00000000 
 ```
 #### HTTP code
 > **200** se viene recuperato l'elenco dei risultati
