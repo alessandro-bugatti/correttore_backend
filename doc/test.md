@@ -4,8 +4,8 @@ API per la gestione dei test, dove un test è un insieme di task che può essere
 ### GET /tests
 #### Descrizione
 > Recupera l'elenco di tutti i test: 
-    * se l'utente è uno studente è l'elenco di tutti i test attivi 
-    * se è un docente solo i propri test, attivi o no
+>* se l'utente è uno studente è l'elenco di tutti i test attivi 
+>* se è un docente solo i propri test, attivi o no
 #### Vincoli
 > Può essere chiamata solo da un utente di tipo studente o docente
 #### Input 
@@ -41,8 +41,8 @@ API per la gestione dei test, dove un test è un insieme di task che può essere
 > Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
 #### Output JSON
 > Ritorna i dati dei task, in particolare:
-    * se l'utente è uno studente ritorna i dati del task solo se il test a cui appartengono è attivo
-    * se è un docente ritorna i dati dei task solo se appartengono a un test creato dall'utente
+>* se l'utente è uno studente ritorna i dati del task solo se il test a cui appartengono è attivo
+>* se è un docente ritorna i dati dei task solo se appartengono a un test creato dall'utente
 ##### Esempio
 ```json
     [
@@ -168,11 +168,11 @@ https://auth-silex-test-alessandro-bugatti.c9users.io/v1/tests/1/task/1?value=10
 > **204** se il task viene aggiunto al test o il valore value viene modificato
 
 > **401** in caso di errore 
-    * il test non appartiene al docente 
-    * il test non esiste 
-    * il task è pubblico e quindi non può fare parte di un test
-    * il task non esiste
-    * l'utente non è un docente
+> * il test non appartiene al docente 
+> * il test non esiste 
+> * il task è pubblico e quindi non può fare parte di un test
+> * il task non esiste
+> * l'utente non è un docente
 ##### Esempio
 ```json
     {
@@ -263,8 +263,8 @@ https://auth-silex-test-alessandro-bugatti.c9users.io/v1/tests/1/task/1?value=10
 > Il token ricevuto all'atto del login, che viene passato nell'header HTTP **x-authorization-token**
 #### Output JSON
 > Ritorna i risultati del test:
-    * se l'utente è uno studente viene controllato che la richiesta sia per sapere i propri risultati, altrimenti genera un errore
-    * se l'utente è un docente può visualizzare il dettaglio di qualsiasi utente che abbia svolto un proprio test
+> * se l'utente è uno studente viene controllato che la richiesta sia per sapere i propri risultati, altrimenti genera un errore
+> * se l'utente è un docente può visualizzare il dettaglio di qualsiasi utente che abbia svolto un proprio test
 ##### Esempio
 ```json
     [
