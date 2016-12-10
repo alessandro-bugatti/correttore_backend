@@ -46,4 +46,22 @@ class ProblemRepository{
 		return $problem;
 	}
 	
+	
+	/**
+     * Check if a private problem is inside an active test
+     * @param Application $app Silex application
+     * @param int $id Problem id
+     * @return boolean If the task is inside an active problem return true, 
+     * false otherwise
+     */
+	public function isInActiveTest(Application $app, $id){
+	$problem = $app['redbean']->getRow( 'SELECT task.id FROM task, test, task_test ' .
+					'WHERE task.id = :id AND is_public = 0 ' . 
+					'AND test.id = task_test.test_id AND '.
+					'task.id = task_test.task_id AND test.is_on = 1',
+        	[':id' => $id]);
+        if (count($problem) == 0)
+			return false;
+		return true;
+	}
 }

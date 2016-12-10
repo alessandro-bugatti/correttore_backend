@@ -45,6 +45,8 @@ class ProblemController{
         $problems = new ProblemRepository();
         if ($app['user']->role->description != 'student')
             return new JsonResponse(['error' => "Only students can get a private problem"], 403);
+        if (!$problems->isInActiveTest($app, $id))
+            return new JsonResponse(['error' => "The problem is not actually active"], 404);
         $problem = $problems->getProblemByID($app, $id);
         if ($problem['id'] != 0){
             $pdf = $app['task.path'] . $problem['short_title'] . '/description.pdf';
