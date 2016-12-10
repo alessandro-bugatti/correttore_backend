@@ -6,10 +6,12 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Correttore\Worker\WorkerFactory;
 use Correttore\Worker\Worker;
 use Correttore\Model\TaskRepository;
 use Correttore\Model\SolutionRepository;
+use Correttore\Model\UserRepository;
 
 class SubmissionController{
     /**
@@ -78,4 +80,27 @@ class SubmissionController{
         return new JsonResponse($result,200);
     }
     
+    /**
+     * Returns the code from users submissions,
+     * as a file. 
+     * @param Application $app Silex Application
+     * @param int $test_id The test id
+     * @param int $task_id The task id
+     * @param int $user_id The user id
+     */
+    public function getSubmission(Application $app, $test_id, $task_id, $user_id)
+    {
+        if ($app['user']->role->description != 'teacher')
+            return new JsonResponse(['error' => 'Only teachers can submit solutions'],401);
+        $repo = new SolutionRepository();
+        $solution = $repo->retrieveSolution($app, $test_id, $task_id, $user_id);
+        if ($solution == null)   
+            return new JsonResponse(['error' => 'Solution not found'],404);
+        $users = new UserRepository();
+        $user = $users->getUserByID($app, $user_id);
+        $source = $app['user.path'] . '/' . $user->username . '/' .
+            $solution->file;
+        $response = new BinaryFileResponse($source);
+        return $response;
+    }
 }

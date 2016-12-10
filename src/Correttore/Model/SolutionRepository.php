@@ -63,4 +63,12 @@ class SolutionRepository{
 		}
 		return $solution;    
     }
+    
+    public function retrieveSolution(Application $app, $test_id, $task_id, $user_id)
+	{
+		$solution = $app['redbean']->findOne( 'solution', ' user_id = :user_id AND task_id = :task_id AND test_id = :test_id', 
+				[ ':user_id' => $user_id, ':task_id' => $task_id,
+					':test_id' => $test_id] );    
+		return $solution;
+    }
 }

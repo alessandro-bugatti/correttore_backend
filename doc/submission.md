@@ -74,3 +74,18 @@
 
 > **500** se qualcosa va storto, in genere per problemi di permessi sul file system, con un messaggio d'errore
 
+
+### GET /submissions/test/{test_id}/tasks/{task_id}/users/{user_id}
+#### Descrizione
+> Recupera il file di codice sottoposto dall'utente identificato da user_id per il task task_id all'interno del test test_id.
+#### Vincoli
+> Può essere chiamata solo da un utente di tipo docente
+#### Output
+> Ritorna il file sorgente se esiste.
+#### HTTP code
+> **200** se viene recuperato il sorgente
+
+> **401** se l'utente non è autorizzato
+
+> **404** se il file non viene trovato
+

@@ -96,6 +96,10 @@ class Permission{
 			[
 				'route' => 'tests',
 				'method' => 'DELETE'
+			],
+			[
+				'route' => 'submissions',
+				'method' => 'GET'
 			]
 		],
 		'student' => [
