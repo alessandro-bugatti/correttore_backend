@@ -28,3 +28,18 @@
 
 #### HTTP code
 > **200** se vengono recuperati i problemi
+
+
+### GET /problems/{id}.pdf
+#### Descrizione
+> Recupera il file pdf di un problema privato identificato da id.
+#### Vincoli
+> Può essere chiamata dagli studenti
+#### Output
+> Ritorna il pdf se esiste e se appartiene a un test attivo
+#### HTTP code
+> **200** se viene recuperato il file pdf
+
+> **401** se l'utente non è autorizzato
+
+> **404** se il file non viene trovato o se è inserito in un test che non è attivo
