@@ -12,6 +12,7 @@ use Correttore\Worker\Worker;
 use Correttore\Model\TaskRepository;
 use Correttore\Model\SolutionRepository;
 use Correttore\Model\UserRepository;
+use Correttore\Model\TestRepository;
 
 class SubmissionController{
     /**
@@ -63,6 +64,9 @@ class SubmissionController{
             return new JsonResponse(['error' => 'Task is public'],403);
         if ($repo->isTaskInTest($app, $task_id, $test_id) == false)
             return new JsonResponse(['error' => 'This task is not in the current test'],404);
+        $tests = new TestRepository();
+        if (!$tests->isActive($app, $test_id))
+            return new JsonResponse(['error' => 'The test is no longer available'],404);
         if (!$app['request']->files->has('submission'))
             return new JsonResponse(['error' => 'There is not the submitted file'],400);
         $factory = new WorkerFactory();

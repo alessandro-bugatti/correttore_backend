@@ -159,6 +159,16 @@ class TestRepository{
 		$app['redbean']->store($test);
 	    return true;
     }
+    
+    public function isActive(Application $app,$test_id)
+    {
+    	//Does the test exist?
+		if (($test = $app['redbean']->load( 'test', $test_id)) == null)
+			return false;
+		if ($test->is_on == 1)
+			return true;
+		return false;
+    }
 	
 	
 }
