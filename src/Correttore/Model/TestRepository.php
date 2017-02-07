@@ -33,7 +33,7 @@ class TestRepository{
 	    . "task_test.task_id = task.id AND\n"
 	    . "task_test.test_id = :test_id AND\n"
 	    . "solution.test_id = :test_id\n"
-	    . "GROUP BY username\n"
+	    . "GROUP BY ID, name, surname, username\n"
 	    . "ORDER BY result DESC";
 		$results = $app['redbean']->getAll( $sql, [':test_id' => $test_id]);
 		return $results; 
