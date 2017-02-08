@@ -1,9 +1,6 @@
 <?php
-include '../lib/RedBeanPHP.php';
 
-R::setup( 'mysql:host=127.0.0.1;dbname=c9',
-        'alessandro_bugat', '' );
-
+include 'conf.php';
 
 $user = R::dispense( 'user' );
 $user->name = 'Alessandro';
