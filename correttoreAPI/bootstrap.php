@@ -29,13 +29,21 @@ $app->before(function (Request $request, Silex\Application $app) {
         $request->request->replace(is_array($data) ? $data : array());
     }
     $app['user'] = null;
-    
-    $len = strpos($request->getRequestURI(),'/', 4); 
+    //THIS PIECE OF CODE IS TOXIC, HAS TO BE REFACTORED
+    //It manages how to distinguish public route from private ones
+    //looking at the requested URI, it does some voodoo string manipulation
+    //it has to be rewritten.
+    if ($app['subdir'] == '')
+        $pref = '/v' . $app['version'] . '/';
+    else
+        $pref = '/' . $app['subdir'] . '/v' . $app['version'] . '/';
+    $pref_len = strlen($pref);
+    $len = strpos($request->getRequestURI(),'/', $pref_len); 
     if ($len == false) 
-        $len = strlen($request->getRequestURI()) - 4; //Il 4 è per saltare /v1/
+        $len = strlen($request->getRequestURI()) - $pref_len; //Il 4 è per saltare /v1/
     else 
-        $len -= 4;
-    $route = substr($request->getRequestURI(), 4, $len);
+        $len -= $pref_len;
+    $route = substr($request->getRequestURI(), $pref_len, $len);
     if (!Controller\Permission::publicRoute($route) && $request->getMethod() != 'OPTIONS')
         if (($token = $request->headers->get('X-Authorization-Token')) != null) {
             $users = new UserRepository();
@@ -231,7 +239,10 @@ $api->get('/tests/{test_id}/users/{user_id}/details', 'test.api:getTestResultsBy
 
 $app->boot();
 
-$app->mount('/v' . $app['version'], $api);
+if ($app['subdir'] == '')
+    $app->mount('/v' . $app['version'], $api);
+else
+    $app->mount('/'. $app['subdir'] . '/v' . $app['version'], $api);
 // This should be the last line
 
 $app->run(); // Start the application, i.e. handle the request

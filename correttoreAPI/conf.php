@@ -9,6 +9,10 @@ $app['redbean.database'] = 'mysql:host=127.0.0.1;dbname=c9';
 $app['redbean.username'] = 'alessandro_bugat';
 $app['redbean.password'] = '';
 
+//Enable the application to be installed in a subfolder
+//inside Apache root
+$app['subdir'] = '';
+
 //API version
 $app['version'] = 1;
 
