@@ -23,7 +23,7 @@ $app['task.path'] = '../tasks/';
 $app['user.path'] = '../users/';
 
 //C++ driver executable
-$app['cppdriver'] = '../driver';
+$app['cppdriver'] = '../bin/driver';
 
 //Folder to store some kind of problem during evaluation phase
 $app['evaluation.dir'] = '../temp';
