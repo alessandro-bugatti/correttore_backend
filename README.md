@@ -11,7 +11,23 @@ La macchina virtuale sarà dove risiederà il sistema, si è scelto Ubuntu Serve
 
 Partendo dalla ISO per l'installazione, bisogna selezionare, quando richiesto, l'opzione per configurare un server LAMP (necessario) e un server OpenSSH (opzionale, ma comodo).
 
-Una volta creata la macchina virtuale si può procedere con l'installazione del backend e del frontend.   
+Una volta creata la macchina virtuale è necessario installare anche alcuni strumenti che servono alla correzione dei task e poi si potrà procedere con l'installazione del backend e del frontend.   
+
+### Installazione dei tool di correzione
+
+#### Correttore programmi in C/C++
+Il correttore nasce con lo scopo di permettere la correzione automatica di codici scritti in C/C++, quindi questo è l'unico modulo necessario, in futuro ne verranno sviluppati altri.
+Serve quindi un ambiente di compilazione, con Ubuntu è sufficiente scrivere il seguente comando:
+
+```bash
+sudo apt-get install build-essential
+```
+
+Inoltre va compilato il programma che effettivamente si occuperà della correzione, eseguendo il codice sottoposto dall'utente su vari casi di test. Per fare questo bisogno compilare il sorgente *driver.c* presente nella cartella *bin* con il seguente comando
+
+```bash
+gcc bin/driver.c -o bin/driver
+```
 
 ### Installazione del backend
 Il backend è stato creato utilizzando Silex, un microframework PHP, e RedbeanPHP come ORM per la connessione al database. La strada più comoda è quella di clonare tramite ```git``` il repository del backend. Prima di far questo può essere comodo spostarsi nella cartella *root* di Apache, che in questa distribuzione è */var/www/html* con il seguente comando:
@@ -43,6 +59,12 @@ Ci si può ora spostare nella cartella *correttoreapi* e scaricare le dipendenze
 ```bash
 cd correttoreapi
 sudo composer update
+```
+
+Siccome il sistema, per alcune operazioni, ha necessità di scrivere in alcune directory, è necessario cambiare i permessi di questa cartella con il seguente comando:
+
+```bash
+sudo chown -R www-data:www-data *
 ```
 
 A questo punto bisogna modificare il file di configurazione di Apache in modo da permettere la lettura del file .htaccess. Si apra quindi il file /etc/apache2/apache2.conf con un editor, ad esempio ```nano```, e cercare le righe seguenti dove, come indicato, nelle directory / e /var/www va settato **AllowOverride All** al posto di **AllowOverride None**
@@ -97,7 +119,7 @@ mysql> GRANT ALL ON correttore.* to 'correttore'@'locahost' IDENTIFIED BY 'corre
 
 dove la prima riga crea il database e la seconda l'utente *correttore* con password *correttore* che avrà i permessi per accedere al database (inutile dire che questo è solo un esempio e la password deve essere sicura).
 
-Bisogna adesso modificare i file di configurazione per inserire questi nuovi dati: il primo che va modificato è il file che si trova nella cartella *init* e si chiama **conf.php**. Come al solito si apre nano
+Bisogna poi modificare i file di configurazione per inserire questi nuovi dati: il primo che va modificato è il file che si trova nella cartella *init* e si chiama **conf.php**. Come al solito si apre nano
 
 ```bash
 nano init/conf.php
@@ -151,7 +173,7 @@ sudo mv correttore2.bitbucket.org/ c2
 
 Come ultimo passaggio bisogna aprire il file **script.6e2e97c6.js** (il numero centrale potrebbe anche essere diverso, non è importante) che si trova nella cartella *script* e cercare la stringa **https://auth-silex-test-alessandro-bugatti.c9users.io** e sostituirla con **http://localhost:8080/correttoreapi**
 
-Se tutto è stato fatto correttamente, andando con il browser all'indirizzo **http://localhost:8080/c2** si dovrebbe vedere la pagina di login dell'applicazione, con le seguenti credenziali di default:
+Se tutto è stato fatto correttamente, andando con il browser all'indirizzo **http://localhost:8080/c2** si dovrebbe vedere la pagina di login dell'applicazione, a cui si può accedere con le seguenti credenziali di default:
 
 |User|Password|Ruolo|
 |---|---|---|
@@ -159,7 +181,19 @@ Se tutto è stato fatto correttamente, andando con il browser all'indirizzo **ht
 |admin|pippo|admin|
 |alekos|pippo|student|
 
+### Ultimi settaggi per utilizzo in una rete locale
+Siccome probabilmente lo scopo è quello di poterlo utilizzare in una rete locale, sono necessari ancora due passaggi:
+1. Se si vuole esporre il proprio computer su una rete locale come server, è necessario cambiare l'indirizzo inserito nella pagina **script.6e2e97c6.js**, usando l'IP assegnato alla propria macchina nella rete, e la stessa cosa deve essere fatta aggiungendo una nuova regola del NAT in VirtualBox (o sostituendo quella relativa a localhost).
+2. Per rendere il processo di utilizzo ancora più intuitivo conviene creare un file **index.php** nella root di Apache (/var/www/html), con il seguente contenuto:
 
+```php
+<?php
+header("Location: http://192.168.6.134/c2");
+?>
+```
+
+
+In questo esempio l'IP della macchina che farà da server é **192.168.6.134** e,grazie a questo file, chi vuole utilizzare il sistema dovrà solo inserire nella barra degli indirizzi del browser questo IP e gli verrà mostrata la pagina del correttore.
 
 ### Contribution guidelines ###
 
