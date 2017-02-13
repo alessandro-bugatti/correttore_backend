@@ -1,7 +1,10 @@
 #!/bin/bash
 #Building some fixtures
 {
-    rm -R ../tasks/*
+    rm -R ../tasks
+    rm -R ../users
+    mkdir ../tasks
+    mkdir ../users
     cp -R fibonacci/ ../tasks/
     cp -R mucche_vitelli/ ../tasks/
     cp -R pacchi_2/ ../tasks/
