@@ -100,6 +100,10 @@ class Permission{
 			[
 				'route' => 'submissions',
 				'method' => 'GET'
+			],
+			[
+				'route' => 'problems',
+				'method' => 'GET'	
 			]
 		],
 		'student' => [
