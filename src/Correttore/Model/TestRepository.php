@@ -41,7 +41,7 @@ class TestRepository{
 	
 	public function getTestResultsByUser(Application $app, $test_id, $user_id)
 	{
-		$sql = "SELECT surname, name, username, short_title, "
+		$sql = "SELECT task.id AS task_id, surname, name, username, short_title, "
 		. "score, test_cases, value\n"
 	    . "FROM solution, user, task, task_test WHERE \n"
 	    . "solution.user_id = user.id AND\n"
