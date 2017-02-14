@@ -63,7 +63,8 @@ class ProblemController{
         $problems = new ProblemRepository();
         if ($app['user']->role->description != 'student')
             return new JsonResponse(['error' => "Only students can get a private problem"], 403);
-        //TODO: check if the problem is in a test
+        if (!$problems->isInActiveTest($app, $id))
+            return new JsonResponse(['error' => "The problem is not actually active"], 404);
         $problem = $problems->getProblemByID($app, $id);
         if ($problem['id'] == 0)
             return new JsonResponse(['error' => "Problem doesn't exist or it is not public"], 404);
