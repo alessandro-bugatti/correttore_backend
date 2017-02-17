@@ -23,7 +23,11 @@ class TaskController{
     
     public function getTasks (Application $app)  {
         $tasksRep = new TaskRepository();
-        $tasks = $tasksRep->getTasks($app);
+        if ($app['user']->role->description == 'admin')
+            $id = null;
+        else
+            $id = $app['user']->id;
+        $tasks = $tasksRep->getTasks($app, $id);
         return new JsonResponse($tasks, 200);
     }
     
