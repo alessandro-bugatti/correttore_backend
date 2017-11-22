@@ -23,12 +23,12 @@ for ($i = 1; $i <= $n_of_users; $i++){
     $user = $group . "_user" . $i;
     fwrite($password_file,"\n" . $user . ";" . $p );
     
-    fwrite($command_file,"\n\\\\User: $user");
+    fwrite($command_file,"\n////User: $user");
     fwrite($command_file,"\n\$user = R::dispense( 'user' );");
     fwrite($command_file,"\n\$user->name = '$user';");
     fwrite($command_file,"\n\$user->surname = '$user';");
     fwrite($command_file,"\n\$user->username = '$user';");
-    fwrite($command_file,"\n\$user->password = '" . password_hash($p, PASSWORD_DEFAULT) ."'");
+    fwrite($command_file,"\n\$user->password = '" . password_hash($p, PASSWORD_DEFAULT) ."';");
     fwrite($command_file,"\n\$user->token = '';");
     fwrite($command_file,"\n\$user->role_id = '2';");
     fwrite($command_file,"\n\$user->sharedGroupsetList[] = \$groupset;");
