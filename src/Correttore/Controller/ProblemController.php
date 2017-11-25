@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Correttore\Model\ProblemRepository;
 use Correttore\Model\UserRepository;
+use Correttore\Model\TaskRepository;
 
 class ProblemController{
     
@@ -43,9 +44,12 @@ class ProblemController{
     
     public function getProblemPDF (Application $app, $id)  {
         $problems = new ProblemRepository();
-        if ($app['user']->role->description != 'student')
-            return new JsonResponse(['error' => "Only students can get a private problem"], 403);
-        if (!$problems->isInActiveTest($app, $id))
+        $tasks = new TaskRepository();
+        if ($app['user']->role->description == 'teacher' &&  
+            !$tasks->isTaskOwnedBy($app, $app['user']->id, $id))
+            return new JsonResponse(['error' => "Only owner can see the task"], 403);
+        if (!$problems->isInActiveTest($app, $id) &&
+            $app['user']->role->description == 'student')
             return new JsonResponse(['error' => "The problem is not actually active"], 404);
         $problem = $problems->getProblemByID($app, $id);
         if ($problem['id'] != 0){
@@ -63,7 +67,8 @@ class ProblemController{
         $problems = new ProblemRepository();
         if ($app['user']->role->description != 'student')
             return new JsonResponse(['error' => "Only students can get a private problem"], 403);
-        //TODO: check if the problem is in a test
+        if (!$problems->isInActiveTest($app, $id))
+            return new JsonResponse(['error' => "The problem is not actually active"], 404);
         $problem = $problems->getProblemByID($app, $id);
         if ($problem['id'] == 0)
             return new JsonResponse(['error' => "Problem doesn't exist or it is not public"], 404);

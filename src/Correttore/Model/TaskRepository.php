@@ -26,9 +26,15 @@ class TaskRepository{
 		return $task;
 	}
 	
-	public function getTasks(Application $app)
+	public function getTasks(Application $app, $user_id = null)
 	{
-		$task = $app['redbean']->getAll( 'SELECT id, title, is_public FROM task');
+		if ($user_id == null)
+			$task = $app['redbean']->getAll( 'SELECT id, title, is_public FROM task');
+		else
+			$task = $app['redbean']->getAll( 'SELECT id, title, is_public 
+							FROM task
+							WHERE task.user_id = :id',
+							['id' => $user_id]);
 		return $task;
 	}
 	

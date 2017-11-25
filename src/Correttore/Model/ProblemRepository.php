@@ -41,7 +41,7 @@ class ProblemRepository{
 	public function getProblemByID(Application $app, $id)
 	{
 		$problem = $app['redbean']->getRow( 'SELECT id, title, short_title, level FROM task ' .
-					'WHERE id = :id AND is_public = 0',
+					'WHERE id = :id',
         	[':id' => $id]);
 		return $problem;
 	}
