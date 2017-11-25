@@ -34,7 +34,7 @@ class TestRepository{
 	    . "task_test.test_id = :test_id AND\n"
 	    . "solution.test_id = :test_id\n"
 	    . "GROUP BY ID, name, surname, username\n"
-	    . "ORDER BY result DESC";
+	    . "ORDER BY result DESC, AVG(submitted)";
 		$results = $app['redbean']->getAll( $sql, [':test_id' => $test_id]);
 		return $results; 
 	}
@@ -60,7 +60,9 @@ class TestRepository{
 	public function getTestsByTeacher(Application $app, $teacher_id)
 	{
 		$teacher = $app['redbean']->load( 'user', $teacher_id);
-		$tests = $teacher->ownTestList;
+		$tests = $teacher
+		->with( ' ORDER BY creation_date DESC ')
+		->ownTestList;
 		return Utility::BeansToArrays($tests);
 	}
 	
