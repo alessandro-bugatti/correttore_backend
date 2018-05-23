@@ -60,7 +60,9 @@ class TestRepository{
 	public function getTestsByTeacher(Application $app, $teacher_id)
 	{
 		$teacher = $app['redbean']->load( 'user', $teacher_id);
-		$tests = $teacher->ownTestList;
+		$tests = $teacher
+		->with( ' ORDER BY creation_date DESC ')
+		->ownTestList;
 		return Utility::BeansToArrays($tests);
 	}
 	
