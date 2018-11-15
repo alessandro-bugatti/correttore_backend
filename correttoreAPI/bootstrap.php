@@ -232,6 +232,10 @@ $api->get('/tests/{test_id}/results', 'test.api:getTestResults')
 	->bind('get_test_results');
 $api->get('/tests/{test_id}/results.csv', 'test.api:getTestResultsCSV')
 	->bind('get_test_results_csv');
+$api->get('/tests/{test_id}/groups/{group_id}/results.csv', 'test.api:getTestResultsWithoutPartialsByGroupCSV')
+	->bind('get_test_results_without_partials_by_group_csv');
+$api->get('/tests/{test_id}/groups/{group_id}/results_with_partials.csv', 'test.api:getTestResultsWithPartialsByGroupCSV')
+	->bind('get_test_results_with_partials_by_group_csv');
 
 $api->get('/tests/{test_id}/users/{user_id}/details', 'test.api:getTestResultsByUser')
 	->bind('get_test_results_by_user');
