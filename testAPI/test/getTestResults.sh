@@ -1,3 +1,3 @@
 #!/bin/bash
-curl -v -H "X-Authorization-Token: 3427a80af08fdf717529d631339a090635acf72079712c12a8a0f2498c5f87da" \
-https://auth-silex-test-alessandro-bugatti.c9users.io/v1/tests/4/results
+curl -v -H "X-Authorization-Token: c2afc5c67e2c8aca14a1309ffa7503a4f75147e908276df094db045ec24e48be" \
+https://correttore-itis-alessandro-bugatti.c9users.io/correttoreapi/v1/tests/6/results

@@ -24,6 +24,7 @@ if ($users == FALSE){
 foreach($users as $user) 
 {
     $user = rtrim($user);
+    if (strlen($user) == 0) continue;
     $names = explode('.',$user);
     $p = bin2hex(openssl_random_pseudo_bytes(4));
     fwrite($password_file,"\n" . $user . ";" . $p );
