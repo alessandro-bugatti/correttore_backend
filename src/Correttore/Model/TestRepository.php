@@ -57,6 +57,33 @@ class TestRepository{
 		return $results; 
 	}
 	
+public function getTestResultsByGroup(Application $app, $test_id, $group_id, $with_partials)
+	{
+		$sql = 'SELECT A.user_id AS ID, surname, name, username, ';
+	    if ($with_partials)
+	    	$sql .= "GROUP_CONCAT(IFNULL(score,'-1') ORDER by A.task_id DESC SEPARATOR ',') AS partials,";
+	    $sql .= <<<EOL
+(SUM(score/A.test_cases*A.value)/
+(SELECT SUM(value) FROM task_test WHERE test_id = :test_id))*100 AS result
+FROM groupset_user, groupset, 
+(
+	SELECT user.id AS user_id, surname, name, username, 
+    task_test.task_id AS task_id, task.test_cases AS test_cases, 
+    task_test.value as value
+	FROM task_test, user, task 
+	WHERE task_test.test_id = :test_id AND task_test.test_id = task.id  
+	ORDER by user.id) AS A 
+    LEFT JOIN solution ON (A.user_id = solution.user_id AND A.task_id = solution.task_id) 
+WHERE A.user_id = groupset_user.user_id AND groupset_user.groupset_id = groupset.id AND groupset.id = :group_id
+GROUP BY ID,name, surname, username
+ORDER BY result DESC, AVG(submitted)
+EOL;
+		$results = $app['redbean']->getAll( $sql, [':test_id' => $test_id,
+			':group_id' => $group_id]);
+		//var_dump($sql);
+		return $results; 
+	}
+	
 	public function getTestsByTeacher(Application $app, $teacher_id)
 	{
 		$teacher = $app['redbean']->load( 'user', $teacher_id);

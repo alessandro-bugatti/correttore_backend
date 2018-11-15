@@ -68,6 +68,42 @@ class TestController{
         return new JsonResponse('',401);
     }
     
+    public function getTestResultsWithPartialsByGroupCSV(Application $app, $test_id, $group_id)
+    {
+        return $this->getTestResultsByGroupCSV($app, $test_id, $group_id, true);
+    }
+    
+    public function getTestResultsWithoutPartialsByGroupCSV(Application $app, $test_id, $group_id)
+    {
+        return $this->getTestResultsByGroupCSV($app, $test_id, $group_id, false);
+    }
+    
+    public function getTestResultsByGroupCSV(Application $app, $test_id, $group_id, $with_partials)
+    {
+        $testsRep = new TestRepository();
+        if ($app['user']->role->description == 'teacher'){
+            //Is this test owned by the teacher?
+            if (!$testsRep->isTestOwnedBy($app, $app['user']->id, $test_id))
+                return new JsonResponse(['error'=>"permission denied, user does not own this test"], 401);
+            $testResults = $testsRep->getTestResultsByGroup($app, $test_id, $group_id, $with_partials);
+            //CSV file creation and response
+            $filename = "test_" . $test_id . ".csv";
+            $outputBuffer = fopen($app['temporary.dir']. '/' . $filename,'w');
+            fwrite($outputBuffer,'Results of test n.' . $test_id . PHP_EOL);
+            fwrite($outputBuffer,'File created on ' . date("Y-m-d H:i:s") . PHP_EOL);
+            foreach($testResults as $val) {
+                fputcsv($outputBuffer, $val,',',' ');
+            }
+            fclose($outputBuffer);
+            $response = new BinaryFileResponse($app['temporary.dir']. '/' . $filename);
+            //Add the file to remove in order to allow to the finish
+            //middleware to delete it
+            $app["file_to_remove"] = $app['temporary.dir']. '/' . $filename;
+            return $response;
+        }
+        return new JsonResponse('',401);
+    }
+    
     
     public function getTestResultsByUser(Application $app, $test_id, $user_id)
     {
