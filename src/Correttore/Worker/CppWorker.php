@@ -24,7 +24,7 @@ class CppWorker extends Worker{
     {
         //Compilation
         ob_start();
-        system("g++ -W $test_dir/main.cpp -o $test_dir/main 2>&1");
+        system("g++ -std=c++11 $test_dir/main.cpp -o $test_dir/main 2>&1");
         return ob_get_clean();
     }
     
