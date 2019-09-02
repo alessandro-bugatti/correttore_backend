@@ -5,13 +5,13 @@
 $app['debug'] = true;
 
 //Database configuration for RedBean
-$app['redbean.database'] = 'mysql:host=127.0.0.1;dbname=c9';
-$app['redbean.username'] = 'alessandro_bugat';
-$app['redbean.password'] = '';
+$app['redbean.database'] = 'mysql:host=127.0.0.1;dbname=correttore';
+$app['redbean.username'] = 'correttore';
+$app['redbean.password'] = 'correttore';
 
 //Enable the application to be installed in a subfolder
 //inside Apache root
-$app['subdir'] = '';
+$app['subdir'] = 'correttoreapi';
 
 //API version
 $app['version'] = 1;
