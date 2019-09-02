@@ -44,7 +44,7 @@ class CppWorker extends Worker{
     {
         $command = $this->app['cppdriver'] .
             " -n " . $task->test_cases . 
-            " -i $test_dir/input%d.txt -o $test_dir/output%d.txt -t 1 -s $test_dir/main 2>&1";
+            " -i $test_dir/input%d.txt -o $test_dir/output%d.txt -t 2 -s $test_dir/main 2>&1";
         ob_start();
         system($command);
         $output = ob_get_clean();
