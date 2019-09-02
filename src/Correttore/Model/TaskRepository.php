@@ -33,7 +33,8 @@ class TaskRepository{
 		else
 			$task = $app['redbean']->getAll( 'SELECT id, title, is_public 
 							FROM task
-							WHERE task.user_id = :id',
+							WHERE task.user_id = :id
+							ORDER BY id DESC',
 							['id' => $user_id]);
 		return $task;
 	}
