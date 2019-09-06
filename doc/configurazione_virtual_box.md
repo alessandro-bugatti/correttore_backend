@@ -1,4 +1,4 @@
-# README #
+# Istruzioni per l'installazione in VirtualBox
 
 Questo parte è il backend del sistema di correzione automatico, che può essere usato per gestire delle prove di programmazione o delle gare.
 
@@ -206,9 +206,7 @@ Se tutto è stato fatto correttamente, andando con il browser all'indirizzo **ht
 |alekos|pippo|student|
 
 ### Ultimi settaggi per utilizzo in una rete locale
-Siccome probabilmente lo scopo è quello di poterlo utilizzare in una rete locale, sono necessari ancora due passaggi:
-1. Se si vuole esporre il proprio computer su una rete locale come server, è necessario cambiare l'indirizzo inserito nella pagina **script.6e2e97c6.js**, usando l'IP assegnato alla propria macchina nella rete, e la stessa cosa deve essere fatta aggiungendo una nuova regola del NAT in VirtualBox (o sostituendo quella relativa a localhost).
-2. Per rendere il processo di utilizzo ancora più intuitivo conviene creare un file **index.php** nella root di Apache (/var/www/html), 
+Siccome probabilmente lo scopo è quello di poterlo utilizzare in una rete locale, conviene creare un file **index.php** nella root di Apache (/var/www/html), 
 
 ```bash
 sudo nano /var/www/html/index.php
@@ -218,7 +216,7 @@ con il seguente contenuto:
 
 ```php
 <?php
-header("Location: http://192.168.6.134:8080/c2");
+header("Location: /c2");
 ?>
 ```
 e rimuovere il file **index.html** originale.
@@ -226,8 +224,6 @@ e rimuovere il file **index.html** originale.
 ```bash
 sudo rm /var/www/html/index.html
 ```
-
-In questo esempio l'IP della macchina che farà da server é **192.168.6.134** e, grazie a questo file, chi vuole utilizzare il sistema dovrà solo inserire nella barra degli indirizzi del browser questo IP e gli verrà mostrata la pagina del correttore.
 
 ### Contribution guidelines ###
 
