@@ -4,28 +4,20 @@ __author__ = 'alessandro'
 import random
 import os
 
-casi_test = 7
-for i in range(casi_test):
+for i in range(0,5):
     fin = 'input' + str(i) + '.txt'
     fout = 'output' + str(i) + '.txt'
     f = open(fin,'w')
-    N = random.randint(100,1000)
-    M = random.randint(1,100000)
-    f.write(str(N) + " " + str(M) + "\n")
-    for j in range(N):
-        f.write(str(random.randint(1,10000)) + '\n')
+    f.write(str(random.randint(1,1000)*2) + ' ' + str(random.randint(1,1000)*2) + '\n')
     f.close()
-    os.system('./main < ' + fin + ' > ' + fout)
-casi_test = 2
-for i in range(casi_test):
-    fin = 'input' + str(i+7) + '.txt'
-    fout = 'output' + str(i+7) + '.txt'
+    #togliere ./ davanti a main nel caso si esegua in Windows
+    os.system('./main < ' + fin + ' > ' + fout) 
+
+for i in range(5,10):
+    fin = 'input' + str(i) + '.txt'
+    fout = 'output' + str(i) + '.txt'
     f = open(fin,'w')
-    N = random.randint(1,100)
-    M = random.randint(1,1000000)
-    f.write(str(N) + " " + str(M) + "\n")
-    for j in range(N):
-        f.write(str(random.randint(1,100)) + '\n')
+    f.write(str(random.randint(1,1000)*2 + 1) + ' ' + str(random.randint(1,1000)*2) + '\n')
     f.close()
-    os.system('./main < ' + fin + ' > ' + fout)
-    
+    #togliere ./ davanti a main nel caso si esegua in Windows
+    os.system('./main < ' + fin + ' > ' + fout) 
