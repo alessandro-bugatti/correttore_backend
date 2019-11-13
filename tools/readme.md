@@ -52,7 +52,7 @@ per ogni riga dovrà contenere il cognome e il nome di uno studente separati da 
 > curmani.federico
 
 Anche in questo caso verranno generati due file, il file dello script per la creazione effettiva degli studenti e il 
-file delle password in chiaro, che dovranno essere distribuiti agli studenti.
+file delle password in chiaro, che dovranno essere distribuite agli studenti.
 
 ## change_admin_password.php
 Questo file ha il solo scopo di permettere di cambiare la password dell'amministratore del sistema di correzione, che su un 
