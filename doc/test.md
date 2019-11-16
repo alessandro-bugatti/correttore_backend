@@ -2,9 +2,18 @@
 API per la gestione dei test, dove un test è un insieme di task che può essere svolto solo da uno studente iscritto 
 
 ### GET /tests
+##### Nota
+16/11/2019: **per gli studenti**  - è stato modificato il comportamento in modo da restituire
+solo i test che sono stati fatti dal docente che gestisce il gruppo
+a cui appartiene lo studente che ha fatto la richiesta.
+Questo è dovuto al fatto che se si vuole usare lo stesso
+server con più docente c'era il problema che tutti gli studenti
+vedevano i test di tutti, questo è anche un po' un rattoppo,
+ma al momento va bene così.
 #### Descrizione
 > Recupera l'elenco di tutti i test: 
 >* se l'utente è uno studente è l'elenco di tutti i test attivi 
+   che sono stati fatti dal docente che gestisce il suo gruppo 
 >* se è un docente solo i propri test, attivi o no
 #### Vincoli
 > Può essere chiamata solo da un utente di tipo studente o docente

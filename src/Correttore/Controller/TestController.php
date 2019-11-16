@@ -22,7 +22,8 @@ class TestController{
             return new JsonResponse($tests,200);
         }
         else if ($app['user']->role->description == 'student'){
-            $tests = $testsRep->getTests($app);
+            //$tests = $testsRep->getTests($app);
+            $tests = $testsRep->getTestsByUserGroup($app, $app['user']->id);
             return new JsonResponse($tests,200);
         }
         else

@@ -15,6 +15,24 @@ class TestRepository{
 		$tests = $app['redbean']->find('test', 'is_on = 1');
 		return Utility::BeansToArrays($tests);
 	}
+
+	public function getTestsByUserGroup(Application $app, $id)
+    {
+        $sql = <<<TAG
+SELECT test.id, test.description, test.is_on
+FROM user, test
+WHERE test.user_id = user.id
+    AND test.is_on = 1
+    AND test.user_id IN (SELECT groupset.user_id
+    FROM groupset
+    WHERE id IN (SELECT groupset_user.groupset_id
+          FROM groupset_user
+          WHERE user_id = :student_id)
+    );
+TAG;
+        $tests = $app['redbean']->getAll($sql, [':student_id' => $id]);
+        return $tests;
+    }
 	
 	public function getTestByID(Application $app, $id)
 	{
