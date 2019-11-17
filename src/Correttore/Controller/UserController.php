@@ -141,7 +141,7 @@ class UserController{
             return new Response('', 404);
         if ($user->role->description != 'student')
             return new JsonResponse(["error" => "Wrong role", 
-                "role" => $request->request->get("role") ], 403);
+                "role" => $user->role->description ], 403);
         //TODO: Check if the student belongs to this teacher
         //Now it is not possible because there isn't any relation
         //between a teacher and a user
