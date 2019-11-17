@@ -110,7 +110,8 @@ class UserController{
     */
     public function getStudents (Application $app)  {
         $users = new UserRepository();
-        $students = $users->getUsersByRole($app,'student');
+        //$students = $users->getUsersByRole($app,'student');
+        $students = $users->getStudentsByTeacher($app, $app['user']->id);
         return new JsonResponse($students, 200);
     }
     
