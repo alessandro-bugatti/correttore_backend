@@ -16,7 +16,7 @@ class UserController{
         $users = new UserRepository();
         $user = $users->createUser($app, $request->request);
         if ($user != null){
-            unset($user->id);
+            //unset($user->id);
             unset($user->password);
             unset($user->role);
             unset($user->role_id);
@@ -120,7 +120,8 @@ class UserController{
         if ($request->request->get("role") != 'student')
             return new JsonResponse(["error" => "Wrong role", 
                 "role" => $request->request->get("role") ], 403);
-        return $this->createUser($request, $app);
+        $user = $this->createUser($request, $app);
+        return $user;
     }
     
     public function getStudent (Application $app, $id)  {

@@ -2,8 +2,10 @@
 
 namespace Correttore\Model;
 
+use Correttore\Util\Utility;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
+
 
 class UserRepository{
     /**
@@ -99,9 +101,9 @@ TAG;
     	$user->username = $data->get("username");
     	$user->password = password_hash($data->get("password"),PASSWORD_DEFAULT);
     	$user->role = $role; 
-    	$app['redbean']->begin();
-	    $app['redbean']->store($user);
-	    return $user;    
+    	//$app['redbean']->begin();
+        $app['redbean']->store($user);
+        return $user;
     }
     
     public function updateUser(Application $app, $data, $id)
