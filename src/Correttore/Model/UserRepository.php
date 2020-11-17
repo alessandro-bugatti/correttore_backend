@@ -58,6 +58,34 @@ class UserRepository{
     	);
 		return $users;
 	}
+
+    /**
+     * Metodo che ritorna la lista degli studenti che appartengono a un docente
+     * cioè fanno parte di uno dei gruppi creati dal docente
+     * @param Application $app L'applicazione Silex
+     * @param $teacher_id Id dell'insegnante di cui interessa l'elenco degli studenti
+     * @return mixed L'elenco degli studenti di un docente individuato
+     * da $teacher_id
+     */
+    public function getStudentsByTeacher(Application $app, $teacher_id)
+    {
+        $role = $app['redbean']->findOne('role','description = "student"');
+        $student_role_id = $role->id;
+        $sql = <<<TAG
+SELECT user.id, user.name, user.surname, user.username
+FROM user, groupset_user, groupset
+WHERE user.id = groupset_user.user_id
+    AND groupset_user.groupset_id = groupset.id
+    AND user.role_id = :role_id
+    AND groupset.user_id = :teacher_id
+TAG;
+        $users = $app['redbean']->getAll( $sql,
+            [':role_id' => $student_role_id,
+                ':teacher_id' => $teacher_id  ]
+        );
+        //return ["role_id"=>$student_role_id];
+        return $users;
+    }
 	
 	public function createUser(Application $app, $data)
 	{

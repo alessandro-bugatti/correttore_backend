@@ -3,7 +3,18 @@ API per la gestione degli studenti
 
 ### GET /students
 #### Descrizione
-> Recupera l'elenco di tutti gli studenti
+##### Nota
+16/11/2019: per permettere di gestire sullo stesso server più
+docenti è stato modificato l'elenco degli studenti ritornati
+da questa chiamata, in quanto adesso vengono ritornati solo gli studenti
+che appartengono ai gruppi creati dal docente, mentre prima 
+venivano ritornati tutti. Sebbene questo funzioni, siccome
+l'interfaccia Angular non ha ancora una gestione dei gruppi,
+l'associazione docente-gruppo e gruppo - studente deve essere 
+fatta a mano sul database oppure attraverso gli script della
+cartella tools.
+> Recupera l'elenco di tutti gli studenti che appartengono
+> ai gruppi del docente che ha fatto la chiamata
 #### Vincoli
 > Può essere chiamata solo da un utente di tipo admin o di tipo docente
 #### Input 

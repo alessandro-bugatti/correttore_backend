@@ -14,7 +14,7 @@ class ProblemRepository{
      */
 	public function getPublicProblems(Application $app)
 	{
-		$publicProblems = $app['redbean']->getAll( 'SELECT id, title FROM task WHERE is_public = "1"' );
+		$publicProblems = $app['redbean']->getAll( 'SELECT id, title FROM task WHERE is_public = "1" ORDER BY id DESC' );
 		return $publicProblems;
 	}
 	
