@@ -80,3 +80,23 @@ script è già parecchio dentro nel sistema e può fare un può quello che vuole
 Con i due file successivamente generati si potrà quindi modificare la password di admin e tenerne traccia. Una
 volta avuto l'accesso di amministratore da quello si possono creare nuovi *docenti* e quelli potranno generare 
 nuovi *studenti*.
+
+## create_and_add_student_to_group.php
+Scopo di questo script è quello di aggiungere uno studente a un gruppo (una classe), dopo che il gruppo è già stato creato con uno degli script 
+precedenti. Può essere utile quando uno studente si aggiunge nel corso dell'anno.
+Va usato un questo modo
+
+```
+php create_and_add_student_to_group.php
+```
+A questo punto verranno poste queste due domande
+
+> Inserisci il nome dell'utente:
+
+> Inserisci il cognome dell'utente:
+
+> Inserisci il nome del gruppo (deve essere un gruppo esistente): "
+
+Dopo aver inserito questi tre dati verrà creato il nuovo utente
+appartenente al gruppo indicato e verrà anche la password casuale generata
+dallo script.
