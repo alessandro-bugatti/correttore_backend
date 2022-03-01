@@ -11,6 +11,7 @@ attraverso l'interprete PHP.
 3. [Creazione di utenti a partire da un file di nomi che vengono aggiunti a un gruppo esistente](#create_users_with_names_in_group)
 4. [Cambiare la password di amministratore](#change_admin_password)
 5. [Crea e aggiunge uno studente a un gruppo già esistente](#create_and_add_student_to_group)
+6. [Generazione di un file HTML che contiene tutte le informazioni su un test svolto](#create_test_HTML)
 
 ## create_users_batch_role.php <a name="create_users_batch_role"></a>
 Scopo di questo script è quello di creare una serie di utenti, appartenenti a un certo gruppo, che possono poi essere
@@ -113,3 +114,10 @@ Dopo aver inserito questi tre dati verrà creato il nuovo utente
 appartenente al gruppo indicato e verrà anche la password casuale generata
 dallo script.
 
+## create_test_HTML.php <a name="create_test_HTML></a>
+
+Genera un file HTML che contiene tutte le informazioni su un test svolto: per ogni studente viene mostrato il punteggio ottenuto e per ogni problema compreso nel test viene incluso il sorgente inviato.
+
+Lo scopo è quello di poter avere un file da poter stampare per un'eventuale correzione manuale del codice.
+
+Viene inclusa la libreria **highligth.js** per poter avere il *syntax highligthing* del codice, l'idea è di spostare sul computer locale il file generato in remoto e poi aprirlo nel browser e produrre un PDF come stampa da browser. La cartella che contiene highlight.js deve essere quindi all stesso livello di dove si trova il file HTML generato dallo script.
