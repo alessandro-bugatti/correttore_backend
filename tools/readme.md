@@ -5,21 +5,32 @@ sono stati sviluppati alcuni script PHP che vanno a risolvere le esigenze più c
 utilizzati questi script necessitano di avere un accesso sul server, tipicamente tramite SSH, e di essere chiamati 
 attraverso l'interprete PHP.
 
-## create_users_batch.php
-Scopo di questo script è quello di creare una serie di studenti, appartenenti a un certo gruppo, che possono poi essere 
-distribuiti a un insieme di utenti di cui non si hanno e/o non interessano i nomi reali (ad esempio per fare delle prove o 
-per gruppi temporanei).
-Lo script deve essere chiamato nel seguente modo (l'uso di *sudo* dipende dai permessi delle cartelle dell'installazione, 
+# Elenco degli script
+1. [Creazione di utenti batch con ruolo e gruppo deciso alla creazione](#create_users_batch_role)
+2. [Creazione di utenti a partire da un file di nomi](#create_users_batch_with_names)
+3. [Cambiare la password di amministratore](#change_admin_password)
+4. [Crea e aggiunge uno studente a un gruppo già esistente](#create_and_add_student_to_group)
+
+## create_users_batch_role.php <a name="create_users_batch_role"></a>
+Scopo di questo script è quello di creare una serie di utenti, appartenenti a un certo gruppo, che possono poi essere
+distribuiti a un insieme di utenti di cui non si hanno e/o non interessano i nomi reali (ad esempio per fare delle prove o
+per gruppi temporanei). Inoltre viene richiesto il loro ruolo,
+che può essere uno tra *admin*, *teacher*, *student*.
+Questo script unifica i due script scritti in precedenza, cioè ```create_user_batch.php``` e ```create_teacher_batch.php```, che 
+quindi sono stati rimossi.
+Lo script deve essere chiamato nel seguente modo (l'uso di *sudo* dipende dai permessi delle cartelle dell'installazione,
 usandolo non si sbaglia)
 
 ```
-sudo php create_users_batch.php
+sudo php create_users_batch_role.php
 ```
-A questo punto verranno poste queste due domande
+A questo punto verranno poste queste tre domande
 
 > Inserisci il nome del gruppo:
 
-> Quanti utenti vuoi creare?
+> Quanti utenti vuoi creare?:
+
+> Che ruolo vuoi che abbiano? (admin, teacher, student):
 
 La risposta alla prima domanda determinerà il nome del gruppo e di conseguenza il nome degli utenti secondo questa
 struttura:
@@ -34,11 +45,8 @@ Per eseguire il primo file basta digitare il comando:
 ```
 php nome_gruppo_creazione.php
 ```
-## create_teachers_batch.php
-Ha lo stesso scopo dello script visto in precedenza, con la differenza che gli utenti generati sono di tipo *docente* 
-e non *studente*, quindi hanno privilegi diversi come spiegato nella guida.
 
-## create_users_batch_with_names.php
+## create_users_batch_with_names.php<a name="create_users_batch_with_names"></a>
 Permette di generare una serie di *studenti* a partire da un file di testo che ne contenga i nomi e può venire comodo 
 all'inizio dell'anno per generare tutti gli studenti di una classe senza inserirli uno per uno dall'interfaccia
 web (cosa che comunque può essere sempre fatta). Il file deve avere un nome uguale a quello del gruppo che si 
@@ -54,7 +62,7 @@ per ogni riga dovrà contenere il cognome e il nome di uno studente separati da 
 Anche in questo caso verranno generati due file, il file dello script per la creazione effettiva degli studenti e il 
 file delle password in chiaro, che dovranno essere distribuite agli studenti.
 
-## change_admin_password.php
+## change_admin_password.php <a name = "change_admin_password"></a>
 Questo file ha il solo scopo di permettere di cambiare la password dell'amministratore del sistema di correzione, che su un 
 sistema appena installato e inizializzato ha come username *admin* e password *pippo*. Siccome non esiste
 una parte dell'interfaccia web che permetta di farlo, questo è l'unico modo per cambiarla, cosa necessaria per evitare
@@ -81,7 +89,7 @@ Con i due file successivamente generati si potrà quindi modificare la password 
 volta avuto l'accesso di amministratore da quello si possono creare nuovi *docenti* e quelli potranno generare 
 nuovi *studenti*.
 
-## create_and_add_student_to_group.php
+## create_and_add_student_to_group.php <a name = "create_and_add_student_to_group"></a>
 Scopo di questo script è quello di aggiungere uno studente a un gruppo (una classe), dopo che il gruppo è già stato creato con uno degli script 
 precedenti. Può essere utile quando uno studente si aggiunge nel corso dell'anno.
 Va usato un questo modo
@@ -100,3 +108,4 @@ A questo punto verranno poste queste due domande
 Dopo aver inserito questi tre dati verrà creato il nuovo utente
 appartenente al gruppo indicato e verrà anche la password casuale generata
 dallo script.
+
