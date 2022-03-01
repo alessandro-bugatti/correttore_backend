@@ -8,8 +8,9 @@ attraverso l'interprete PHP.
 # Elenco degli script
 1. [Creazione di utenti batch con ruolo e gruppo deciso alla creazione](#create_users_batch_role)
 2. [Creazione di utenti a partire da un file di nomi](#create_users_batch_with_names)
-3. [Cambiare la password di amministratore](#change_admin_password)
-4. [Crea e aggiunge uno studente a un gruppo già esistente](#create_and_add_student_to_group)
+3. [Creazione di utenti a partire da un file di nomi che vengono aggiunti a un gruppo esistente](#create_users_with_names_in_group)
+4. [Cambiare la password di amministratore](#change_admin_password)
+5. [Crea e aggiunge uno studente a un gruppo già esistente](#create_and_add_student_to_group)
 
 ## create_users_batch_role.php <a name="create_users_batch_role"></a>
 Scopo di questo script è quello di creare una serie di utenti, appartenenti a un certo gruppo, che possono poi essere
@@ -61,6 +62,9 @@ per ogni riga dovrà contenere il cognome e il nome di uno studente separati da 
 
 Anche in questo caso verranno generati due file, il file dello script per la creazione effettiva degli studenti e il 
 file delle password in chiaro, che dovranno essere distribuite agli studenti.
+
+## create_users_with_names_in_group.php<a name="create_users_with_names_in_group"></a>
+Esattamente uguale al precedente, l'unica differenza è che in questo caso il gruppo deve esistere già e gli utenti vengono aggiunti a quel gruppo
 
 ## change_admin_password.php <a name = "change_admin_password"></a>
 Questo file ha il solo scopo di permettere di cambiare la password dell'amministratore del sistema di correzione, che su un 
