@@ -114,7 +114,7 @@ Dopo aver inserito questi tre dati verrà creato il nuovo utente
 appartenente al gruppo indicato e verrà anche la password casuale generata
 dallo script.
 
-## create_test_HTML.php <a name="create_test_HTML></a>
+## create_test_HTML.php <a name="create_test_HTML"></a>
 
 Genera un file HTML che contiene tutte le informazioni su un test svolto: per ogni studente viene mostrato il punteggio ottenuto e per ogni problema compreso nel test viene incluso il sorgente inviato.
 
