@@ -1,7 +1,11 @@
 <?php
 
 $group = readline("Inserisci il nome del gruppo: ");
-$n_of_users = readline("Quanti utenti vuoi creare?");
+$n_of_users = readline("Quanti utenti vuoi creare?: ");
+$role = readline("Che ruolo vuoi che abbiano? (admin, teacher, student): ");
+$roles = ['admin', 'teacher', 'student'];
+while (!in_array($role, $roles))
+    $role = readline("Inserisci un ruolo tra admin, teacher, student: ");
 
 $command_file = fopen($group . "_creation.php",'w');
 $password_file = fopen($group . "_password.txt",'w');
@@ -30,7 +34,8 @@ for ($i = 1; $i <= $n_of_users; $i++){
     fwrite($command_file,"\n\$user->username = '$user';");
     fwrite($command_file,"\n\$user->password = '" . password_hash($p, PASSWORD_DEFAULT) ."';");
     fwrite($command_file,"\n\$user->token = '';");
-    fwrite($command_file,"\n\$user->role_id = 1;");
+    fwrite($command_file,"\n\$role  = R::find( 'role', ' description = ? ',[ '$role' ]);");
+    fwrite($command_file,"\n\$user->description = \$role;");
     fwrite($command_file,"\n\$user->sharedGroupsetList[] = \$groupset;");
     fwrite($command_file,"\n\$id = R::store( \$user );\n");
 }
