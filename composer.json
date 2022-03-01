@@ -1,7 +1,7 @@
 {
     "require": {
         "silex/silex": "~1.2",
-        "symfony/security": "4.1.12"
+        "symfony/security": "4.4.23"
     },
     "autoload": {
         "psr-4": {
