@@ -27,7 +27,7 @@ foreach($users as $user)
     if (strlen($user) == 0) continue;
     $names = explode('.',$user);
     $p = bin2hex(openssl_random_pseudo_bytes(4));
-    fwrite($password_file,"\n" . $user . ";" . $p );
+    fwrite($password_file,"\n\n\nUsername: " . $user . " Password: " . $p );
     
     fwrite($command_file,"\n////User: $user");
     fwrite($command_file,"\n\$user = R::dispense( 'user' );");

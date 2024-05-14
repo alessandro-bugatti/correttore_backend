@@ -18,3 +18,7 @@
 /bin
 /composer.lock
 
+#Configurazione dei server dove fare il deployment, non contiente password
+#ma è comunque inutile
+/.idea/sshConfigs.xml
+>>>>>>> 9b8c983e8209edffebe7b7f1bbd71ace64e522db

@@ -74,14 +74,16 @@ class CppWorker extends Worker{
     if ($test_dir == null)
         throw new \Exception("Unable to create evaluation folder");
     //Source file copy
-    if (copy($file, $test_dir ."/main.cpp" )==false)
+	//var_dump($file);
+    if (copy($file['tmp_name'], $test_dir ."/main.cpp" )==false)
     {
         Utility::rmEvaluationFolder($test_dir);
-        throw new \Exception("Unable to copy solution in evaluation folder");
+        throw new \Exception("Unable to cop0y solution in evaluation folder");
     }
         
     //Compilation
     $result = $this->compile($test_dir);
+    
     if ($result != "")
     {
         Utility::rmEvaluationFolder($test_dir);    
@@ -89,10 +91,11 @@ class CppWorker extends Worker{
     }
         
     //Test case copy
+    
     $this->testCaseCopy($test_dir, $task);
     //Execute tests
     $result = $this->doTest($id, $task, $test_dir);
-    Utility::rmEvaluationFolder($test_dir);    
+    Utility::rmEvaluationFolder($test_dir);
     return $result;
     }
     

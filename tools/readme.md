@@ -120,4 +120,3 @@ Genera un file HTML che contiene tutte le informazioni su un test svolto: per og
 
 Lo scopo è quello di poter avere un file da poter stampare per un'eventuale correzione manuale del codice.
 
-Viene inclusa la libreria **highligth.js** per poter avere il *syntax highligthing* del codice, l'idea è di spostare sul computer locale il file generato in remoto e poi aprirlo nel browser e produrre un PDF come stampa da browser. La cartella che contiene highlight.js deve essere quindi all stesso livello di dove si trova il file HTML generato dallo script.

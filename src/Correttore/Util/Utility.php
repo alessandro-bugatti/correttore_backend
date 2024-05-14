@@ -10,7 +10,7 @@ class Utility{
     {
         foreach($beans as $bean)
 			$items[] = $bean->export();
-		if (count($items) == 0)
+		if ($items == null || count($items) == 0)
 		    return array();
 		return $items;
     }
@@ -31,7 +31,7 @@ class Utility{
      */
     public static function RemoveFieldsFromArrays(&$array, $toRemove)
     {
-        if (count($array) == 0)
+        if ($array == null || count($array) == 0)
             return;
             
         foreach ($array as &$row)
@@ -47,7 +47,10 @@ class Utility{
     public static function storeSubmittedFile(Application $app, $folder, $file, $name, $type = '')
     {
         //Maybe there could be some sort of file type checking..
-        $file->move($app['user.path'] . '/' . $folder, $name.'.'.$type);
+        //var_dump($app['user.path'] . $folder . '/' . $name . '.'.$type);
+        //var_dump($file);
+	rename($file['tmp_name'], $app['user.path'] . $folder .'/' . $name . '.' . $type);
+	//$file->move($app['user.path']  . $folder, $name.'.'.$type);
     }
     
     /**
